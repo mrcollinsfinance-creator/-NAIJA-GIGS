@@ -799,6 +799,46 @@ footer ul{
   .hero h1{
     font-size:43px;
   }
+
+  /* MOBILE POST-A-GIG FIX ONLY */
+
+  #postGigModal{
+    padding:10px;
+  }
+
+  #postGigModal .modal-box{
+    width:100%;
+    max-width:100%;
+    padding:18px;
+    overflow:hidden;
+  }
+
+  #postGigModal .form-grid{
+    grid-template-columns:minmax(0,1fr);
+    width:100%;
+    gap:12px;
+  }
+
+  #postGigModal .form-group{
+    width:100%;
+    min-width:0;
+  }
+
+  #postGigModal .input,
+  #postGigModal .select,
+  #postGigModal .textarea{
+    width:100%;
+    max-width:100%;
+    min-width:0;
+  }
+
+  #postGigModal .modal-actions{
+    flex-wrap:wrap;
+  }
+
+  #postGigModal .modal-actions .btn{
+    max-width:100%;
+  }
 }
 </style>
 </head>
