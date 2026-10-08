@@ -2174,7 +2174,13 @@ $("gigForm").addEventListener(
 
       $("gigForm").reset();
 
-      await displayGigs();
+      /*
+        IMPORTANT FIX:
+        Always fetch the latest gigs from Supabase after
+        publishing or editing instead of only rendering
+        the old allGigs array.
+      */
+      await loadGigs();
 
       await loadDashboard();
 
