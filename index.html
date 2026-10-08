@@ -17,18 +17,30 @@
       font-family: Arial, sans-serif;
       background: #f5f7f6;
       color: #17201b;
+      line-height: 1.5;
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font-family: inherit;
+    }
+
+    button {
+      cursor: pointer;
     }
 
     header {
       background: #087f3d;
       color: white;
-      padding: 22px 18px;
+      padding: 24px 18px;
       text-align: center;
     }
 
     header h1 {
-      font-size: 28px;
-      margin-bottom: 7px;
+      font-size: 30px;
+      margin-bottom: 5px;
     }
 
     header p {
@@ -37,29 +49,30 @@
     }
 
     .container {
-      max-width: 900px;
+      max-width: 950px;
       margin: auto;
-      padding: 20px 16px;
+      padding: 20px 15px 40px;
     }
+
+    /* HERO */
 
     .hero {
       background: white;
-      border-radius: 18px;
-      padding: 25px 18px;
+      border-radius: 20px;
+      padding: 28px 18px;
       text-align: center;
       margin-bottom: 20px;
-      box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+      box-shadow: 0 3px 15px rgba(0,0,0,0.06);
     }
 
     .hero h2 {
-      font-size: 24px;
+      font-size: 25px;
       margin-bottom: 10px;
     }
 
     .hero p {
       color: #66716b;
-      line-height: 1.5;
-      margin-bottom: 18px;
+      margin-bottom: 20px;
     }
 
     .buttons {
@@ -69,13 +82,13 @@
       flex-wrap: wrap;
     }
 
-    button {
+    .btn {
       border: none;
-      border-radius: 10px;
+      border-radius: 11px;
       padding: 13px 18px;
       font-size: 15px;
       font-weight: bold;
-      cursor: pointer;
+      min-height: 46px;
     }
 
     .primary {
@@ -88,35 +101,105 @@
       color: #087f3d;
     }
 
+    .dark {
+      background: #17201b;
+      color: white;
+    }
+
+    .danger {
+      background: #ffe8e8;
+      color: #b42318;
+    }
+
+    .btn:hover {
+      opacity: 0.9;
+    }
+
+    /* SECTIONS */
+
     .section-title {
       font-size: 21px;
-      margin: 24px 0 14px;
+      margin: 26px 0 14px;
     }
+
+    /* SEARCH */
+
+    .search-box {
+      background: white;
+      border-radius: 16px;
+      padding: 15px;
+      border: 1px solid #e1e6e3;
+      margin-bottom: 18px;
+    }
+
+    .search-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .input,
+    .textarea,
+    .select {
+      width: 100%;
+      border: 1px solid #d8dfdb;
+      border-radius: 10px;
+      padding: 13px;
+      font-size: 15px;
+      outline: none;
+      background: white;
+    }
+
+    .input:focus,
+    .textarea:focus,
+    .select:focus {
+      border-color: #087f3d;
+    }
+
+    .textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    /* CATEGORIES */
 
     .categories {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
+      gap: 10px;
     }
 
     .category {
       background: white;
       border: 1px solid #e1e6e3;
       border-radius: 14px;
-      padding: 18px 12px;
+      padding: 17px 10px;
       text-align: center;
       cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .category:hover {
+      border-color: #087f3d;
+      transform: translateY(-2px);
+    }
+
+    .category.active {
+      background: #e7f3ec;
+      border-color: #087f3d;
     }
 
     .category .icon {
       font-size: 28px;
-      margin-bottom: 8px;
+      margin-bottom: 7px;
     }
 
     .category strong {
       display: block;
-      font-size: 15px;
+      font-size: 14px;
     }
+
+    /* GIGS */
 
     .gigs {
       display: grid;
@@ -125,20 +208,20 @@
 
     .gig {
       background: white;
-      border-radius: 15px;
-      padding: 17px;
+      border-radius: 16px;
+      padding: 18px;
       border: 1px solid #e1e6e3;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
     }
 
     .gig h3 {
-      font-size: 18px;
-      margin-bottom: 9px;
+      font-size: 19px;
+      margin-bottom: 8px;
     }
 
     .gig p {
       color: #5f6a64;
-      line-height: 1.5;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
 
     .gig-info {
@@ -152,16 +235,45 @@
       font-size: 17px;
     }
 
+    .gig-category {
+      display: inline-block;
+      background: #e7f3ec;
+      color: #087f3d;
+      border-radius: 20px;
+      padding: 5px 9px;
+      font-size: 12px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .gig-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 13px;
+    }
+
     .contact {
       display: inline-block;
-      margin-top: 10px;
       background: #087f3d;
       color: white;
       text-decoration: none;
       padding: 11px 15px;
       border-radius: 9px;
       font-weight: bold;
+      border: none;
     }
+
+    .delete-btn {
+      background: #ffe8e8;
+      color: #b42318;
+      border: none;
+      padding: 11px 15px;
+      border-radius: 9px;
+      font-weight: bold;
+    }
+
+    /* NOTICE */
 
     .notice {
       background: #fff8df;
@@ -169,7 +281,127 @@
       border-radius: 14px;
       padding: 16px;
       margin-top: 24px;
-      line-height: 1.5;
+    }
+
+    /* EMPTY */
+
+    .empty {
+      background: white;
+      border: 1px dashed #cbd4ce;
+      border-radius: 15px;
+      padding: 30px 18px;
+      text-align: center;
+      color: #66716b;
+    }
+
+    /* MODAL */
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      padding: 15px;
+      overflow-y: auto;
+    }
+
+    .modal.show {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+    }
+
+    .modal-content {
+      width: 100%;
+      max-width: 600px;
+      background: white;
+      border-radius: 20px;
+      margin: 25px auto;
+      padding: 22px;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      gap: 10px;
+    }
+
+    .modal-header h2 {
+      font-size: 22px;
+    }
+
+    .close {
+      border: none;
+      background: #f0f2f1;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      font-size: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      font-size: 14px;
+      margin-bottom: 7px;
+    }
+
+    .location-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    .location-row .input {
+      flex: 1;
+    }
+
+    .small-btn {
+      border: none;
+      background: #e7f3ec;
+      color: #087f3d;
+      border-radius: 9px;
+      padding: 0 12px;
+      font-weight: bold;
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .form-actions .btn {
+      flex: 1;
+    }
+
+    /* TOAST */
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 20px;
+      transform: translateX(-50%) translateY(100px);
+      background: #17201b;
+      color: white;
+      padding: 13px 18px;
+      border-radius: 10px;
+      z-index: 2000;
+      opacity: 0;
+      transition: 0.3s;
+      max-width: 90%;
+      text-align: center;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
     }
 
     footer {
@@ -180,8 +412,13 @@
     }
 
     @media (min-width: 650px) {
+
       .categories {
         grid-template-columns: repeat(4, 1fr);
+      }
+
+      .search-row {
+        grid-template-columns: 1fr 180px;
       }
     }
   </style>
@@ -189,181 +426,1291 @@
 
 <body>
 
+  <!-- HEADER -->
+
   <header>
     <h1>🇳🇬 Naija Gigs</h1>
     <p>Find work. Find workers.</p>
   </header>
 
+
   <main class="container">
 
+    <!-- HERO -->
+
     <section class="hero">
-      <h2>What are you looking for?</h2>
+
+      <h2>Find work. Find workers.</h2>
 
       <p>
-        Find small jobs and gigs near you, or post a job
+        Discover small jobs around you or post a job
         and find someone who can help.
       </p>
 
       <div class="buttons">
-        <button class="primary" onclick="findGigs()">
+
+        <button
+          class="btn primary"
+          onclick="findGigs()">
           🔎 Find Gigs
         </button>
 
-        <button class="secondary" onclick="postGig()">
+        <button
+          class="btn secondary"
+          onclick="openPostGig()">
           ➕ Post a Gig
         </button>
+
       </div>
+
     </section>
 
-    <h2 class="section-title">Browse Categories</h2>
+
+    <!-- SEARCH -->
+
+    <div class="search-box">
+
+      <div class="search-row">
+
+        <input
+          id="searchInput"
+          class="input"
+          type="text"
+          placeholder="🔎 Search gigs...">
+
+        <select
+          id="locationFilter"
+          class="select">
+
+          <option value="">All locations</option>
+
+        </select>
+
+      </div>
+
+    </div>
+
+
+    <!-- CATEGORIES -->
+
+    <h2 class="section-title">
+      Browse Categories
+    </h2>
 
     <section class="categories">
 
-      <div class="category" onclick="chooseCategory('Cleaning')">
+      <div
+        class="category active"
+        onclick="chooseCategory('All', this)">
+
+        <div class="icon">🔥</div>
+        <strong>All Gigs</strong>
+
+      </div>
+
+      <div
+        class="category"
+        onclick="chooseCategory('Cleaning', this)">
+
         <div class="icon">🧹</div>
         <strong>Cleaning</strong>
+
       </div>
 
-      <div class="category" onclick="chooseCategory('Delivery')">
+      <div
+        class="category"
+        onclick="chooseCategory('Delivery', this)">
+
         <div class="icon">🚚</div>
         <strong>Delivery</strong>
+
       </div>
 
-      <div class="category" onclick="chooseCategory('Online Work')">
+      <div
+        class="category"
+        onclick="chooseCategory('Online Work', this)">
+
         <div class="icon">💻</div>
         <strong>Online Work</strong>
+
       </div>
 
-      <div class="category" onclick="chooseCategory('Repairs')">
+      <div
+        class="category"
+        onclick="chooseCategory('Repairs', this)">
+
         <div class="icon">🔧</div>
         <strong>Repairs</strong>
+
       </div>
 
-      <div class="category" onclick="chooseCategory('Design')">
+      <div
+        class="category"
+        onclick="chooseCategory('Design', this)">
+
         <div class="icon">🎨</div>
         <strong>Design</strong>
+
       </div>
 
-      <div class="category" onclick="chooseCategory('Tutoring')">
+      <div
+        class="category"
+        onclick="chooseCategory('Tutoring', this)">
+
         <div class="icon">👨‍🏫</div>
         <strong>Tutoring</strong>
+
       </div>
 
-      <div class="category" onclick="chooseCategory('Moving')">
+      <div
+        class="category"
+        onclick="chooseCategory('Moving', this)">
+
         <div class="icon">📦</div>
         <strong>Moving</strong>
+
       </div>
 
-      <div class="category" onclick="chooseCategory('Other')">
+      <div
+        class="category"
+        onclick="chooseCategory('Other', this)">
+
         <div class="icon">➕</div>
         <strong>Other</strong>
+
       </div>
 
     </section>
 
-    <h2 class="section-title" id="recent">
-      🔥 Recent Gigs
+
+    <!-- RECENT GIGS -->
+
+    <h2
+      class="section-title"
+      id="recent">
+
+      🔥 Available Gigs
+
     </h2>
 
-    <section class="gigs">
-
-      <article class="gig">
-        <h3>🎨 Need a Flyer Designer</h3>
-
-        <p>
-          I need someone to design a simple promotional
-          flyer for a small business.
-        </p>
-
-        <div class="gig-info">📍 Port Harcourt</div>
-
-        <div class="gig-info pay">💰 ₦5,000</div>
-
-        <a
-          class="contact"
-          href="https://wa.me/"
-          target="_blank"
-        >
-          📱 Contact
-        </a>
-      </article>
-
-      <article class="gig">
-        <h3>🧹 House Cleaning</h3>
-
-        <p>
-          Looking for someone available to help clean
-          a house this weekend.
-        </p>
-
-        <div class="gig-info">📍 Port Harcourt</div>
-
-        <div class="gig-info pay">💰 ₦10,000</div>
-
-        <a
-          class="contact"
-          href="https://wa.me/"
-          target="_blank"
-        >
-          📱 Contact
-        </a>
-      </article>
-
-      <article class="gig">
-        <h3>🚚 Delivery Helper Needed</h3>
-
-        <p>
-          Need someone to help deliver a package locally.
-        </p>
-
-        <div class="gig-info">📍 Port Harcourt</div>
-
-        <div class="gig-info pay">💰 ₦5,000</div>
-
-        <a
-          class="contact"
-          href="https://wa.me/"
-          target="_blank"
-        >
-          📱 Contact
-        </a>
-      </article>
-
+    <section
+      class="gigs"
+      id="gigsContainer">
     </section>
 
+
+    <!-- NOTICE -->
+
     <div class="notice">
-      <strong>💡 Want to make money?</strong><br>
-      Check the available gigs and contact the person
+
+      <strong>💡 Looking for work?</strong>
+
+      <br>
+
+      Browse the gigs above and contact the person
       who posted the job.
+
+      <br><br>
+
+      <strong>💼 Need someone?</strong>
+
+      <br>
+
+      Post your gig and let people find you.
+
     </div>
 
   </main>
 
+
+  <!-- POST GIG MODAL -->
+
+  <div
+    class="modal"
+    id="postGigModal">
+
+    <div class="modal-content">
+
+      <div class="modal-header">
+
+        <h2>➕ Post a Gig</h2>
+
+        <button
+          class="close"
+          onclick="closePostGig()">
+
+          ✕
+
+        </button>
+
+      </div>
+
+
+      <form id="gigForm">
+
+        <div class="form-group">
+
+          <label>
+            Job title
+          </label>
+
+          <input
+            id="gigTitle"
+            class="input"
+            type="text"
+            placeholder="Example: Need a Flyer Designer"
+            required>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>
+            Category
+          </label>
+
+          <select
+            id="gigCategory"
+            class="select"
+            required>
+
+            <option value="">
+              Select a category
+            </option>
+
+            <option value="Cleaning">
+              🧹 Cleaning
+            </option>
+
+            <option value="Delivery">
+              🚚 Delivery
+            </option>
+
+            <option value="Online Work">
+              💻 Online Work
+            </option>
+
+            <option value="Repairs">
+              🔧 Repairs
+            </option>
+
+            <option value="Design">
+              🎨 Design
+            </option>
+
+            <option value="Tutoring">
+              👨‍🏫 Tutoring
+            </option>
+
+            <option value="Moving">
+              📦 Moving
+            </option>
+
+            <option value="Other">
+              ➕ Other
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>
+            Job description
+          </label>
+
+          <textarea
+            id="gigDescription"
+            class="textarea"
+            placeholder="Explain what you need done..."
+            required></textarea>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>
+            Location
+          </label>
+
+          <div class="location-row">
+
+            <input
+              id="gigLocation"
+              class="input"
+              type="text"
+              placeholder="Example: Port Harcourt"
+              required>
+
+            <button
+              type="button"
+              class="small-btn"
+              onclick="useMyLocation()">
+
+              📍 GPS
+
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>
+            Payment (₦)
+          </label>
+
+          <input
+            id="gigPayment"
+            class="input"
+            type="number"
+            min="0"
+            placeholder="Example: 5000"
+            required>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>
+            WhatsApp number
+          </label>
+
+          <input
+            id="gigWhatsapp"
+            class="input"
+            type="tel"
+            placeholder="Example: 08012345678"
+            required>
+
+        </div>
+
+
+        <div class="form-actions">
+
+          <button
+            type="button"
+            class="btn danger"
+            onclick="closePostGig()">
+
+            Cancel
+
+          </button>
+
+          <button
+            type="submit"
+            class="btn primary">
+
+            🚀 Publish Gig
+
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+  <!-- TOAST -->
+
+  <div
+    class="toast"
+    id="toast">
+  </div>
+
+
+  <!-- FOOTER -->
+
   <footer>
-    🇳🇬 Naija Gigs — Find work. Find workers.
+
+    🇳🇬 Naija Gigs
+
+    <br>
+
+    Find work. Find workers.
+
   </footer>
+
 
   <script>
 
-    function findGigs() {
-      document.getElementById("recent").scrollIntoView({
-        behavior: "smooth"
+    /* =====================================================
+       NAIJA GIGS
+       LOCAL VERSION
+       ===================================================== */
+
+
+    const STORAGE_KEY = "naija_gigs_v1";
+
+
+    let selectedCategory = "All";
+
+
+    /*
+      Demo gigs.
+      These are shown the first time the website opens.
+    */
+
+    const demoGigs = [
+
+      {
+        id: "demo-1",
+
+        title: "Need a Flyer Designer",
+
+        category: "Design",
+
+        description:
+          "I need someone to design a simple promotional flyer for a small business.",
+
+        location: "Port Harcourt",
+
+        payment: 5000,
+
+        whatsapp: "",
+
+        createdAt: Date.now()
+      },
+
+
+      {
+        id: "demo-2",
+
+        title: "House Cleaning",
+
+        category: "Cleaning",
+
+        description:
+          "Looking for someone available to help clean a house this weekend.",
+
+        location: "Port Harcourt",
+
+        payment: 10000,
+
+        whatsapp: "",
+
+        createdAt: Date.now()
+      },
+
+
+      {
+        id: "demo-3",
+
+        title: "Delivery Helper Needed",
+
+        category: "Delivery",
+
+        description:
+          "Need someone to help deliver a package locally.",
+
+        location: "Port Harcourt",
+
+        payment: 5000,
+
+        whatsapp: "",
+
+        createdAt: Date.now()
+      }
+
+    ];
+
+
+    /* =====================================================
+       LOAD GIGS
+       ===================================================== */
+
+    function loadGigs() {
+
+      let saved = localStorage.getItem(STORAGE_KEY);
+
+      if (!saved) {
+
+        localStorage.setItem(
+          STORAGE_KEY,
+          JSON.stringify(demoGigs)
+        );
+
+        return demoGigs;
+
+      }
+
+
+      try {
+
+        const gigs = JSON.parse(saved);
+
+        if (Array.isArray(gigs)) {
+
+          return gigs;
+
+        }
+
+      } catch (error) {
+
+        console.log("Could not load gigs.");
+
+      }
+
+
+      return demoGigs;
+
+    }
+
+
+    /* =====================================================
+       SAVE GIGS
+       ===================================================== */
+
+    function saveGigs(gigs) {
+
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(gigs)
+      );
+
+    }
+
+
+    /* =====================================================
+       FORMAT MONEY
+       ===================================================== */
+
+    function formatMoney(amount) {
+
+      return Number(amount || 0).toLocaleString(
+        "en-NG"
+      );
+
+    }
+
+
+    /* =====================================================
+       DISPLAY GIGS
+       ===================================================== */
+
+    function displayGigs() {
+
+      const container =
+        document.getElementById("gigsContainer");
+
+
+      const search =
+        document
+          .getElementById("searchInput")
+          .value
+          .toLowerCase()
+          .trim();
+
+
+      const location =
+        document
+          .getElementById("locationFilter")
+          .value;
+
+
+      const gigs = loadGigs();
+
+
+      const filtered = gigs.filter(function(gig) {
+
+        const matchesCategory =
+          selectedCategory === "All" ||
+          gig.category === selectedCategory;
+
+
+        const searchableText = (
+
+          gig.title + " " +
+          gig.description + " " +
+          gig.category + " " +
+          gig.location
+
+        ).toLowerCase();
+
+
+        const matchesSearch =
+          !search ||
+          searchableText.includes(search);
+
+
+        const matchesLocation =
+          !location ||
+          gig.location === location;
+
+
+        return (
+          matchesCategory &&
+          matchesSearch &&
+          matchesLocation
+        );
+
       });
+
+
+      if (filtered.length === 0) {
+
+        container.innerHTML = `
+
+          <div class="empty">
+
+            <div style="font-size:40px;">
+              🔍
+            </div>
+
+            <h3>
+              No gigs found
+            </h3>
+
+            <p>
+              Try another search or category.
+            </p>
+
+          </div>
+
+        `;
+
+        return;
+
+      }
+
+
+      container.innerHTML = filtered.map(function(gig) {
+
+        const phone =
+          normalizeWhatsApp(gig.whatsapp);
+
+
+        const contactButton =
+          phone
+            ? `
+              <a
+                class="contact"
+                href="https://wa.me/${phone}"
+                target="_blank"
+                rel="noopener">
+                📱 WhatsApp
+              </a>
+            `
+            : `
+              <button
+                class="contact"
+                onclick="showToast('The poster has not added a WhatsApp number yet.')">
+                📱 Contact
+              </button>
+            `;
+
+
+        return `
+
+          <article class="gig">
+
+            <span class="gig-category">
+              ${escapeHTML(gig.category)}
+            </span>
+
+            <h3>
+              ${escapeHTML(gig.title)}
+            </h3>
+
+            <p>
+              ${escapeHTML(gig.description)}
+            </p>
+
+            <div class="gig-info">
+              📍 ${escapeHTML(gig.location)}
+            </div>
+
+            <div class="gig-info pay">
+              💰 ₦${formatMoney(gig.payment)}
+            </div>
+
+            <div class="gig-actions">
+
+              ${contactButton}
+
+              ${
+                gig.id.toString().startsWith("local-")
+                  ? `
+                    <button
+                      class="delete-btn"
+                      onclick="deleteGig('${gig.id}')">
+                      🗑️ Delete
+                    </button>
+                  `
+                  : ""
+              }
+
+            </div>
+
+          </article>
+
+        `;
+
+      }).join("");
+
     }
 
-    function postGig() {
-      alert(
-        "The Post a Gig feature is coming next. " +
-        "We will connect this button to a real gig-posting form."
-      );
+
+    /* =====================================================
+       OPEN POST GIG
+       ===================================================== */
+
+    function openPostGig() {
+
+      document
+        .getElementById("postGigModal")
+        .classList.add("show");
+
+      document
+        .getElementById("gigTitle")
+        .focus();
+
     }
 
-    function chooseCategory(category) {
-      alert(
-        "You selected: " + category +
-        "\n\nCategory filtering will be connected next."
-      );
+
+    /* =====================================================
+       CLOSE POST GIG
+       ===================================================== */
+
+    function closePostGig() {
+
+      document
+        .getElementById("postGigModal")
+        .classList.remove("show");
+
     }
+
+
+    /* =====================================================
+       SUBMIT GIG
+       ===================================================== */
+
+    document
+      .getElementById("gigForm")
+      .addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+
+        const title =
+          document
+            .getElementById("gigTitle")
+            .value
+            .trim();
+
+
+        const category =
+          document
+            .getElementById("gigCategory")
+            .value;
+
+
+        const description =
+          document
+            .getElementById("gigDescription")
+            .value
+            .trim();
+
+
+        const location =
+          document
+            .getElementById("gigLocation")
+            .value
+            .trim();
+
+
+        const payment =
+          document
+            .getElementById("gigPayment")
+            .value;
+
+
+        const whatsapp =
+          document
+            .getElementById("gigWhatsapp")
+            .value
+            .trim();
+
+
+        if (
+          !title ||
+          !category ||
+          !description ||
+          !location ||
+          !payment ||
+          !whatsapp
+        ) {
+
+          showToast(
+            "Please fill in every field."
+          );
+
+          return;
+
+        }
+
+
+        const gig = {
+
+          id:
+            "local-" +
+            Date.now(),
+
+          title: title,
+
+          category: category,
+
+          description: description,
+
+          location: location,
+
+          payment: Number(payment),
+
+          whatsapp: whatsapp,
+
+          createdAt: Date.now()
+
+        };
+
+
+        const gigs = loadGigs();
+
+
+        gigs.unshift(gig);
+
+
+        saveGigs(gigs);
+
+
+        document
+          .getElementById("gigForm")
+          .reset();
+
+
+        closePostGig();
+
+
+        updateLocations();
+
+
+        displayGigs();
+
+
+        showToast(
+          "🎉 Your gig has been published!"
+        );
+
+
+        setTimeout(function() {
+
+          document
+            .getElementById("recent")
+            .scrollIntoView({
+              behavior: "smooth"
+            });
+
+        }, 300);
+
+      });
+
+
+    /* =====================================================
+       DELETE GIG
+       ===================================================== */
+
+    function deleteGig(id) {
+
+      const confirmed =
+        confirm(
+          "Delete this gig from this browser?"
+        );
+
+
+      if (!confirmed) return;
+
+
+      const gigs = loadGigs();
+
+
+      const updated =
+        gigs.filter(function(gig) {
+
+          return gig.id !== id;
+
+        });
+
+
+      saveGigs(updated);
+
+
+      updateLocations();
+
+
+      displayGigs();
+
+
+      showToast(
+        "Gig deleted."
+      );
+
+    }
+
+
+    /* =====================================================
+       FIND GIGS
+       ===================================================== */
+
+    function findGigs() {
+
+      document
+        .getElementById("recent")
+        .scrollIntoView({
+          behavior: "smooth"
+        });
+
+    }
+
+
+    /* =====================================================
+       CATEGORY FILTER
+       ===================================================== */
+
+    function chooseCategory(category, element) {
+
+      selectedCategory = category;
+
+
+      document
+        .querySelectorAll(".category")
+        .forEach(function(item) {
+
+          item.classList.remove("active");
+
+        });
+
+
+      if (element) {
+
+        element.classList.add("active");
+
+      }
+
+
+      displayGigs();
+
+    }
+
+
+    /* =====================================================
+       SEARCH
+       ===================================================== */
+
+    document
+      .getElementById("searchInput")
+      .addEventListener(
+        "input",
+        displayGigs
+      );
+
+
+    document
+      .getElementById("locationFilter")
+      .addEventListener(
+        "change",
+        displayGigs
+      );
+
+
+    /* =====================================================
+       LOCATION FILTER OPTIONS
+       ===================================================== */
+
+    function updateLocations() {
+
+      const select =
+        document.getElementById(
+          "locationFilter"
+        );
+
+
+      const currentValue =
+        select.value;
+
+
+      const gigs = loadGigs();
+
+
+      const locations = [
+
+        ...new Set(
+
+          gigs
+            .map(function(gig) {
+
+              return gig.location.trim();
+
+            })
+            .filter(Boolean)
+
+        )
+
+      ].sort();
+
+
+      select.innerHTML = `
+
+        <option value="">
+          All locations
+        </option>
+
+      `;
+
+
+      locations.forEach(function(location) {
+
+        const option =
+          document.createElement("option");
+
+
+        option.value = location;
+
+        option.textContent =
+          "📍 " + location;
+
+
+        select.appendChild(option);
+
+      });
+
+
+      if (
+        locations.includes(currentValue)
+      ) {
+
+        select.value =
+          currentValue;
+
+      }
+
+    }
+
+
+    /* =====================================================
+       NORMALIZE WHATSAPP
+       ===================================================== */
+
+    function normalizeWhatsApp(number) {
+
+      if (!number) return "";
+
+
+      let phone =
+        number
+          .replace(/\D/g, "");
+
+
+      /*
+        Nigerian numbers entered as:
+        08012345678
+        become:
+        2348012345678
+      */
+
+      if (
+        phone.startsWith("0") &&
+        phone.length === 11
+      ) {
+
+        phone =
+          "234" +
+          phone.substring(1);
+
+      }
+
+
+      /*
+        If someone enters:
+        +2348012345678
+        the + is removed automatically.
+      */
+
+
+      return phone;
+
+    }
+
+
+    /* =====================================================
+       GPS LOCATION
+       ===================================================== */
+
+    function useMyLocation() {
+
+      if (!navigator.geolocation) {
+
+        showToast(
+          "Your browser does not support GPS."
+        );
+
+        return;
+
+      }
+
+
+      showToast(
+        "📍 Getting your location..."
+      );
+
+
+      navigator.geolocation.getCurrentPosition(
+
+        function(position) {
+
+          const latitude =
+            position.coords.latitude;
+
+
+          const longitude =
+            position.coords.longitude;
+
+
+          /*
+            We don't send the coordinates anywhere.
+            For now we simply show them in the field
+            so the user knows GPS worked.
+
+            A proper address lookup can be added
+            when we connect the free backend.
+          */
+
+          document
+            .getElementById("gigLocation")
+            .value =
+              "Location detected (" +
+              latitude.toFixed(4) +
+              ", " +
+              longitude.toFixed(4) +
+              ")";
+
+
+          showToast(
+            "📍 Location detected."
+          );
+
+        },
+
+        function(error) {
+
+          showToast(
+            "Could not get your location. Please enter it manually."
+          );
+
+        },
+
+        {
+          enableHighAccuracy: true,
+          timeout: 10000,
+          maximumAge: 60000
+        }
+
+      );
+
+    }
+
+
+    /* =====================================================
+       TOAST MESSAGE
+       ===================================================== */
+
+    let toastTimer;
+
+
+    function showToast(message) {
+
+      const toast =
+        document.getElementById("toast");
+
+
+      toast.textContent =
+        message;
+
+
+      toast.classList.add("show");
+
+
+      clearTimeout(toastTimer);
+
+
+      toastTimer =
+        setTimeout(function() {
+
+          toast.classList.remove("show");
+
+        }, 3000);
+
+    }
+
+
+    /* =====================================================
+       ESCAPE HTML
+       ===================================================== */
+
+    function escapeHTML(value) {
+
+      return String(value)
+
+        .replace(/&/g, "&amp;")
+
+        .replace(/</g, "&lt;")
+
+        .replace(/>/g, "&gt;")
+
+        .replace(/"/g, "&quot;")
+
+        .replace(/'/g, "&#039;");
+
+    }
+
+
+    /* =====================================================
+       CLOSE MODAL WHEN CLICKING OUTSIDE
+       ===================================================== */
+
+    document
+      .getElementById("postGigModal")
+      .addEventListener(
+        "click",
+        function(event) {
+
+          if (
+            event.target === this
+          ) {
+
+            closePostGig();
+
+          }
+
+        }
+      );
+
+
+    /* =====================================================
+       START APP
+       ===================================================== */
+
+    updateLocations();
+
+    displayGigs();
 
   </script>
 
