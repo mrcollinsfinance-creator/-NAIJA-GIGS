@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Naija Gigs 🇳🇬</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7f6;
+      color: #17201b;
+    }
+
+    header {
+      background: #087f3d;
+      color: white;
+      padding: 22px 18px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 28px;
+      margin-bottom: 7px;
+    }
+
+    header p {
+      font-size: 15px;
+      opacity: 0.95;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 20px 16px;
+    }
+
+    .hero {
+      background: white;
+      border-radius: 18px;
+      padding: 25px 18px;
+      text-align: center;
+      margin-bottom: 20px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+    }
+
+    .hero h2 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      color: #66716b;
+      line-height: 1.5;
+      margin-bottom: 18px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: none;
+      border-radius: 10px;
+      padding: 13px 18px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .primary {
+      background: #087f3d;
+      color: white;
+    }
+
+    .secondary {
+      background: #e7f3ec;
+      color: #087f3d;
+    }
+
+    .section-title {
+      font-size: 21px;
+      margin: 24px 0 14px;
+    }
+
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .category {
+      background: white;
+      border: 1px solid #e1e6e3;
+      border-radius: 14px;
+      padding: 18px 12px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .category .icon {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+
+    .category strong {
+      display: block;
+      font-size: 15px;
+    }
+
+    .gigs {
+      display: grid;
+      gap: 14px;
+    }
+
+    .gig {
+      background: white;
+      border-radius: 15px;
+      padding: 17px;
+      border: 1px solid #e1e6e3;
+    }
+
+    .gig h3 {
+      font-size: 18px;
+      margin-bottom: 9px;
+    }
+
+    .gig p {
+      color: #5f6a64;
+      line-height: 1.5;
+      margin-bottom: 8px;
+    }
+
+    .gig-info {
+      font-size: 14px;
+      margin: 6px 0;
+    }
+
+    .pay {
+      color: #087f3d;
+      font-weight: bold;
+      font-size: 17px;
+    }
+
+    .contact {
+      display: inline-block;
+      margin-top: 10px;
+      background: #087f3d;
+      color: white;
+      text-decoration: none;
+      padding: 11px 15px;
+      border-radius: 9px;
+      font-weight: bold;
+    }
+
+    .notice {
+      background: #fff8df;
+      border: 1px solid #f1df9b;
+      border-radius: 14px;
+      padding: 16px;
+      margin-top: 24px;
+      line-height: 1.5;
+    }
+
+    footer {
+      text-align: center;
+      color: #737c77;
+      padding: 30px 15px;
+      font-size: 13px;
+    }
+
+    @media (min-width: 650px) {
+      .categories {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>🇳🇬 Naija Gigs</h1>
+    <p>Find work. Find workers.</p>
+  </header>
+
+  <main class="container">
+
+    <section class="hero">
+      <h2>What are you looking for?</h2>
+
+      <p>
+        Find small jobs and gigs near you, or post a job
+        and find someone who can help.
+      </p>
+
+      <div class="buttons">
+        <button class="primary" onclick="findGigs()">
+          🔎 Find Gigs
+        </button>
+
+        <button class="secondary" onclick="postGig()">
+          ➕ Post a Gig
+        </button>
+      </div>
+    </section>
+
+    <h2 class="section-title">Browse Categories</h2>
+
+    <section class="categories">
+
+      <div class="category" onclick="chooseCategory('Cleaning')">
+        <div class="icon">🧹</div>
+        <strong>Cleaning</strong>
+      </div>
+
+      <div class="category" onclick="chooseCategory('Delivery')">
+        <div class="icon">🚚</div>
+        <strong>Delivery</strong>
+      </div>
+
+      <div class="category" onclick="chooseCategory('Online Work')">
+        <div class="icon">💻</div>
+        <strong>Online Work</strong>
+      </div>
+
+      <div class="category" onclick="chooseCategory('Repairs')">
+        <div class="icon">🔧</div>
+        <strong>Repairs</strong>
+      </div>
+
+      <div class="category" onclick="chooseCategory('Design')">
+        <div class="icon">🎨</div>
+        <strong>Design</strong>
+      </div>
+
+      <div class="category" onclick="chooseCategory('Tutoring')">
+        <div class="icon">👨‍🏫</div>
+        <strong>Tutoring</strong>
+      </div>
+
+      <div class="category" onclick="chooseCategory('Moving')">
+        <div class="icon">📦</div>
+        <strong>Moving</strong>
+      </div>
+
+      <div class="category" onclick="chooseCategory('Other')">
+        <div class="icon">➕</div>
+        <strong>Other</strong>
+      </div>
+
+    </section>
+
+    <h2 class="section-title" id="recent">
+      🔥 Recent Gigs
+    </h2>
+
+    <section class="gigs">
+
+      <article class="gig">
+        <h3>🎨 Need a Flyer Designer</h3>
+
+        <p>
+          I need someone to design a simple promotional
+          flyer for a small business.
+        </p>
+
+        <div class="gig-info">📍 Port Harcourt</div>
+
+        <div class="gig-info pay">💰 ₦5,000</div>
+
+        <a
+          class="contact"
+          href="https://wa.me/"
+          target="_blank"
+        >
+          📱 Contact
+        </a>
+      </article>
+
+      <article class="gig">
+        <h3>🧹 House Cleaning</h3>
+
+        <p>
+          Looking for someone available to help clean
+          a house this weekend.
+        </p>
+
+        <div class="gig-info">📍 Port Harcourt</div>
+
+        <div class="gig-info pay">💰 ₦10,000</div>
+
+        <a
+          class="contact"
+          href="https://wa.me/"
+          target="_blank"
+        >
+          📱 Contact
+        </a>
+      </article>
+
+      <article class="gig">
+        <h3>🚚 Delivery Helper Needed</h3>
+
+        <p>
+          Need someone to help deliver a package locally.
+        </p>
+
+        <div class="gig-info">📍 Port Harcourt</div>
+
+        <div class="gig-info pay">💰 ₦5,000</div>
+
+        <a
+          class="contact"
+          href="https://wa.me/"
+          target="_blank"
+        >
+          📱 Contact
+        </a>
+      </article>
+
+    </section>
+
+    <div class="notice">
+      <strong>💡 Want to make money?</strong><br>
+      Check the available gigs and contact the person
+      who posted the job.
+    </div>
+
+  </main>
+
+  <footer>
+    🇳🇬 Naija Gigs — Find work. Find workers.
+  </footer>
+
+  <script>
+
+    function findGigs() {
+      document.getElementById("recent").scrollIntoView({
+        behavior: "smooth"
+      });
+    }
+
+    function postGig() {
+      alert(
+        "The Post a Gig feature is coming next. " +
+        "We will connect this button to a real gig-posting form."
+      );
+    }
+
+    function chooseCategory(category) {
+      alert(
+        "You selected: " + category +
+        "\n\nCategory filtering will be connected next."
+      );
+    }
+
+  </script>
+
+</body>
+</html>
