@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Naija Gigs 🇳🇬 | Find Work. Find Workers.</title>
+
+<!-- SUPABASE -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 
@@ -320,15 +324,6 @@ nav{
   border:none;
 }
 
-.delete-btn{
-  background:#ffe8e8;
-  color:#b42318;
-  border:none;
-  padding:11px 15px;
-  border-radius:9px;
-  font-weight:bold;
-}
-
 /* INFO CARDS */
 
 .info-grid{
@@ -602,9 +597,6 @@ footer{
 
 <body>
 
-
-<!-- HEADER -->
-
 <header id="home">
 
   <div class="logo">
@@ -617,40 +609,27 @@ footer{
 
 </header>
 
-
-<!-- NAVIGATION -->
-
 <nav>
 
   <div class="nav-inner">
 
-    <button
-      class="nav-link"
-      onclick="goTo('home')">
+    <button class="nav-link" onclick="goTo('home')">
       🏠 Home
     </button>
 
-    <button
-      class="nav-link"
-      onclick="goTo('find')">
+    <button class="nav-link" onclick="goTo('find')">
       🔎 Find Gigs
     </button>
 
-    <button
-      class="nav-link"
-      onclick="openPostGig()">
+    <button class="nav-link" onclick="openPostGig()">
       ➕ Post a Gig
     </button>
 
-    <button
-      class="nav-link"
-      onclick="goTo('how')">
+    <button class="nav-link" onclick="goTo('how')">
       📖 How It Works
     </button>
 
-    <button
-      class="nav-link"
-      onclick="goTo('about')">
+    <button class="nav-link" onclick="goTo('about')">
       ℹ️ About
     </button>
 
@@ -658,11 +637,7 @@ footer{
 
 </nav>
 
-
 <main class="container">
-
-
-<!-- HERO -->
 
 <section class="hero">
 
@@ -677,32 +652,19 @@ footer{
 
   <div class="buttons">
 
-    <button
-      class="btn primary"
-      onclick="goTo('find')">
-
+    <button class="btn primary" onclick="goTo('find')">
       🔎 Find Gigs
-
     </button>
 
-    <button
-      class="btn secondary"
-      onclick="openPostGig()">
-
+    <button class="btn secondary" onclick="openPostGig()">
       ➕ Post a Gig
-
     </button>
 
   </div>
 
 </section>
 
-
-<!-- FIND GIGS -->
-
-<section
-  class="section"
-  id="find">
+<section class="section" id="find">
 
   <h2 class="section-title">
     🔎 Find Gigs
@@ -718,9 +680,7 @@ footer{
         type="text"
         placeholder="🔎 Search gigs...">
 
-      <select
-        id="locationFilter"
-        class="select">
+      <select id="locationFilter" class="select">
 
         <option value="">
           All locations
@@ -732,135 +692,77 @@ footer{
 
   </div>
 
-
   <h2 class="section-title">
     Browse Categories
   </h2>
 
-
   <section class="categories">
 
-    <div
-      class="category active"
-      onclick="chooseCategory('All',this)">
-
+    <div class="category active"
+         onclick="chooseCategory('All',this)">
       <div class="icon">🔥</div>
-
       <strong>All Gigs</strong>
-
     </div>
 
-
-    <div
-      class="category"
-      onclick="chooseCategory('Cleaning',this)">
-
+    <div class="category"
+         onclick="chooseCategory('Cleaning',this)">
       <div class="icon">🧹</div>
-
       <strong>Cleaning</strong>
-
     </div>
 
-
-    <div
-      class="category"
-      onclick="chooseCategory('Delivery',this)">
-
+    <div class="category"
+         onclick="chooseCategory('Delivery',this)">
       <div class="icon">🚚</div>
-
       <strong>Delivery</strong>
-
     </div>
 
-
-    <div
-      class="category"
-      onclick="chooseCategory('Online Work',this)">
-
+    <div class="category"
+         onclick="chooseCategory('Online Work',this)">
       <div class="icon">💻</div>
-
       <strong>Online Work</strong>
-
     </div>
 
-
-    <div
-      class="category"
-      onclick="chooseCategory('Repairs',this)">
-
+    <div class="category"
+         onclick="chooseCategory('Repairs',this)">
       <div class="icon">🔧</div>
-
       <strong>Repairs</strong>
-
     </div>
 
-
-    <div
-      class="category"
-      onclick="chooseCategory('Design',this)">
-
+    <div class="category"
+         onclick="chooseCategory('Design',this)">
       <div class="icon">🎨</div>
-
       <strong>Design</strong>
-
     </div>
 
-
-    <div
-      class="category"
-      onclick="chooseCategory('Tutoring',this)">
-
+    <div class="category"
+         onclick="chooseCategory('Tutoring',this)">
       <div class="icon">👨‍🏫</div>
-
       <strong>Tutoring</strong>
-
     </div>
 
-
-    <div
-      class="category"
-      onclick="chooseCategory('Moving',this)">
-
+    <div class="category"
+         onclick="chooseCategory('Moving',this)">
       <div class="icon">📦</div>
-
       <strong>Moving</strong>
-
     </div>
 
-
-    <div
-      class="category"
-      onclick="chooseCategory('Other',this)">
-
+    <div class="category"
+         onclick="chooseCategory('Other',this)">
       <div class="icon">➕</div>
-
       <strong>Other</strong>
-
     </div>
 
   </section>
 
-
-  <h2
-    class="section-title"
-    id="recent">
-
+  <h2 class="section-title" id="recent">
     🔥 Available Gigs
-
   </h2>
 
-
-  <section
-    class="gigs"
-    id="gigsContainer">
-  </section>
-
+  <section class="gigs" id="gigsContainer"></section>
 
   <div class="notice">
 
-    <strong>
-      💡 Looking for work?
-    </strong>
+    <strong>💡 Looking for work?</strong>
 
     <br>
 
@@ -869,9 +771,7 @@ footer{
 
     <br><br>
 
-    <strong>
-      💼 Need someone?
-    </strong>
+    <strong>💼 Need someone?</strong>
 
     <br>
 
@@ -881,12 +781,7 @@ footer{
 
 </section>
 
-
-<!-- HOW IT WORKS -->
-
-<section
-  class="section"
-  id="how">
+<section class="section" id="how">
 
   <h2 class="section-title">
     📖 How Naija Gigs Works
@@ -898,106 +793,57 @@ footer{
     and services.
   </p>
 
-
   <div class="steps">
 
     <div class="step">
-
-      <div class="step-number">
-        1
-      </div>
-
+      <div class="step-number">1</div>
       <div>
-
-        <h3>
-          🔎 Find a Gig
-        </h3>
-
+        <h3>🔎 Find a Gig</h3>
         <p>
           Browse jobs by category, location,
           or search for a specific opportunity.
         </p>
-
       </div>
-
     </div>
 
-
     <div class="step">
-
-      <div class="step-number">
-        2
-      </div>
-
+      <div class="step-number">2</div>
       <div>
-
-        <h3>
-          📱 Contact the Poster
-        </h3>
-
+        <h3>📱 Contact the Poster</h3>
         <p>
           When you find a suitable gig,
           contact the person who posted it.
         </p>
-
       </div>
-
     </div>
 
-
     <div class="step">
-
-      <div class="step-number">
-        3
-      </div>
-
+      <div class="step-number">3</div>
       <div>
-
-        <h3>
-          🤝 Agree on the Details
-        </h3>
-
+        <h3>🤝 Agree on the Details</h3>
         <p>
           Discuss the job, payment, timing
           and other important details.
         </p>
-
       </div>
-
     </div>
 
-
     <div class="step">
-
-      <div class="step-number">
-        4
-      </div>
-
+      <div class="step-number">4</div>
       <div>
-
-        <h3>
-          ✅ Complete the Job
-        </h3>
-
+        <h3>✅ Complete the Job</h3>
         <p>
           Complete the agreed work and
           receive your payment.
         </p>
-
       </div>
-
     </div>
 
   </div>
 
 </section>
 
-
-<!-- ABOUT -->
-
-<section
-  class="section"
-  id="about">
+<section class="section" id="about">
 
   <h2 class="section-title">
     ℹ️ About Naija Gigs
@@ -1006,69 +852,38 @@ footer{
   <div class="info-grid">
 
     <div class="info-card">
-
-      <div class="big-icon">
-        🇳🇬
-      </div>
-
-      <h3>
-        Built for Nigeria
-      </h3>
-
+      <div class="big-icon">🇳🇬</div>
+      <h3>Built for Nigeria</h3>
       <p>
         Naija Gigs is being built to help Nigerians
         discover small jobs, services and work
         opportunities.
       </p>
-
     </div>
 
-
     <div class="info-card">
-
-      <div class="big-icon">
-        🤝
-      </div>
-
-      <h3>
-        Connect People
-      </h3>
-
+      <div class="big-icon">🤝</div>
+      <h3>Connect People</h3>
       <p>
         The goal is simple: connect people who
         need work done with people who can do it.
       </p>
-
     </div>
 
-
     <div class="info-card">
-
-      <div class="big-icon">
-        🚀
-      </div>
-
-      <h3>
-        Start Small
-      </h3>
-
+      <div class="big-icon">🚀</div>
+      <h3>Start Small</h3>
       <p>
         We are starting with a simple platform
         and improving it as more people use it.
       </p>
-
     </div>
 
   </div>
 
 </section>
 
-
-<!-- SAFETY -->
-
-<section
-  class="section"
-  id="safety">
+<section class="section" id="safety">
 
   <h2 class="section-title">
     🛡️ Safety & Scam Awareness
@@ -1077,50 +892,39 @@ footer{
   <div class="info-card">
 
     <p>
-
       Please remember that Naija Gigs is a platform
       for connecting people. Always use your judgment
       before accepting a job or sending money.
-
     </p>
 
     <br>
 
     <p>
-
-      <strong>Never send money just because someone
-      promises you a job.</strong>
-
+      <strong>
+        Never send money just because someone
+        promises you a job.
+      </strong>
     </p>
 
     <br>
 
     <p>
-
       Verify the person, business, job details,
       location and payment terms before starting.
-
     </p>
 
     <br>
 
     <p>
-
       If something feels suspicious, do not continue
       with the transaction.
-
     </p>
 
   </div>
 
 </section>
 
-
-<!-- FAQ -->
-
-<section
-  class="section"
-  id="faq">
+<section class="section" id="faq">
 
   <h2 class="section-title">
     ❓ Frequently Asked Questions
@@ -1129,86 +933,54 @@ footer{
   <div class="faq">
 
     <details>
-
-      <summary>
-        Is Naija Gigs free?
-      </summary>
-
+      <summary>Is Naija Gigs free?</summary>
       <p>
         Yes. The basic platform is designed to
         be free to use.
       </p>
-
     </details>
 
-
     <details>
-
-      <summary>
-        Can I post a job?
-      </summary>
-
+      <summary>Can I post a job?</summary>
       <p>
         Yes. Tap "Post a Gig", complete the form
         and publish your job.
       </p>
-
     </details>
 
-
     <details>
-
-      <summary>
-        How do I contact someone?
-      </summary>
-
+      <summary>How do I contact someone?</summary>
       <p>
         Where a WhatsApp number has been provided,
         you can contact the gig poster through
         WhatsApp.
       </p>
-
     </details>
 
-
     <details>
-
-      <summary>
-        Does Naija Gigs guarantee a job?
-      </summary>
-
+      <summary>Does Naija Gigs guarantee a job?</summary>
       <p>
         No. Naija Gigs connects people. Users are
         responsible for agreeing on the job,
         payment and other details.
       </p>
-
     </details>
 
-
     <details>
-
       <summary>
         Can I use Naija Gigs from anywhere in Nigeria?
       </summary>
-
       <p>
         Yes. Gigs can be posted with different
         Nigerian locations.
       </p>
-
     </details>
 
   </div>
 
 </section>
 
-
-<!-- CONTACT -->
-
-<section
-  class="section"
-  id="contact">
+<section class="section" id="contact">
 
   <h2 class="section-title">
     📞 Contact Naija Gigs
@@ -1239,12 +1011,7 @@ footer{
 
 </section>
 
-
-<!-- PRIVACY -->
-
-<section
-  class="section"
-  id="privacy">
+<section class="section" id="privacy">
 
   <h2 class="section-title">
     🔐 Privacy
@@ -1253,10 +1020,9 @@ footer{
   <div class="info-card">
 
     <p>
-      Naija Gigs is being developed in stages.
-      At this stage, gig information entered on
-      this version is stored locally in the user's
-      browser.
+      Naija Gigs uses a shared database to store
+      gig information so that publicly posted gigs
+      can be viewed by other users.
     </p>
 
     <br>
@@ -1270,21 +1036,16 @@ footer{
     <br>
 
     <p>
-      When the shared database is introduced,
-      the privacy system will be updated to explain
-      what information is stored and how it is used.
+      Gig information may include the job title,
+      description, location, payment amount and
+      WhatsApp contact number provided by the poster.
     </p>
 
   </div>
 
 </section>
 
-
-<!-- TERMS -->
-
-<section
-  class="section"
-  id="terms">
+<section class="section" id="terms">
 
   <h2 class="section-title">
     📋 Terms
@@ -1327,12 +1088,9 @@ footer{
 
 </main>
 
-
 <!-- POST GIG MODAL -->
 
-<div
-  class="modal"
-  id="postGigModal">
+<div class="modal" id="postGigModal">
 
   <div class="modal-content">
 
@@ -1345,13 +1103,10 @@ footer{
       <button
         class="close"
         onclick="closePostGig()">
-
         ✕
-
       </button>
 
     </div>
-
 
     <form id="gigForm">
 
@@ -1369,7 +1124,6 @@ footer{
           required>
 
       </div>
-
 
       <div class="form-group">
 
@@ -1422,7 +1176,6 @@ footer{
 
       </div>
 
-
       <div class="form-group">
 
         <label>
@@ -1436,7 +1189,6 @@ footer{
           required></textarea>
 
       </div>
-
 
       <div class="form-group">
 
@@ -1457,15 +1209,12 @@ footer{
             type="button"
             class="small-btn"
             onclick="useMyLocation()">
-
             📍 GPS
-
           </button>
 
         </div>
 
       </div>
-
 
       <div class="form-group">
 
@@ -1483,7 +1232,6 @@ footer{
 
       </div>
 
-
       <div class="form-group">
 
         <label>
@@ -1499,24 +1247,20 @@ footer{
 
       </div>
 
-
       <div class="form-actions">
 
         <button
           type="button"
           class="btn danger"
           onclick="closePostGig()">
-
           Cancel
-
         </button>
 
         <button
           type="submit"
-          class="btn primary">
-
+          class="btn primary"
+          id="publishGigButton">
           🚀 Publish Gig
-
         </button>
 
       </div>
@@ -1527,16 +1271,7 @@ footer{
 
 </div>
 
-
-<!-- TOAST -->
-
-<div
-  class="toast"
-  id="toast">
-</div>
-
-
-<!-- FOOTER -->
+<div class="toast" id="toast"></div>
 
 <footer>
 
@@ -1586,66 +1321,40 @@ footer{
 
 </footer>
 
-
 <script>
 
 /* =====================================================
    NAIJA GIGS
-   COMPLETE LOCAL VERSION
+   SUPABASE SHARED DATABASE VERSION
    ===================================================== */
 
 
-const STORAGE_KEY =
-  "naija_gigs_v1";
+/* =====================================================
+   SUPABASE CONNECTION
+   ===================================================== */
 
+const SUPABASE_URL =
+  "https://dwmextvdqjmoqiusslfr.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+  "sb_publishable_E4I0ToLLySQdZJaa0B9DEw_bLzGIvnT";
+
+const db =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
+
+
+/* =====================================================
+   APP STATE
+   ===================================================== */
 
 let selectedCategory =
   "All";
 
-
-/* =====================================================
-   DEMO GIGS
-   ===================================================== */
-
-const demoGigs = [
-
-  {
-    id:"demo-1",
-    title:"Need a Flyer Designer",
-    category:"Design",
-    description:
-      "I need someone to design a simple promotional flyer for a small business.",
-    location:"Port Harcourt",
-    payment:5000,
-    whatsapp:"",
-    createdAt:Date.now()
-  },
-
-  {
-    id:"demo-2",
-    title:"House Cleaning",
-    category:"Cleaning",
-    description:
-      "Looking for someone available to help clean a house this weekend.",
-    location:"Port Harcourt",
-    payment:10000,
-    whatsapp:"",
-    createdAt:Date.now()
-  },
-
-  {
-    id:"demo-3",
-    title:"Delivery Helper Needed",
-    category:"Delivery",
-    description:
-      "Need someone to help deliver a package locally.",
-    location:"Port Harcourt",
-    payment:5000,
-    whatsapp:"",
-    createdAt:Date.now()
-  }
-
-];
+let allGigs =
+  [];
 
 
 /* =====================================================
@@ -1669,61 +1378,98 @@ function goTo(id){
 
 
 /* =====================================================
-   LOAD GIGS
+   LOAD GIGS FROM SUPABASE
    ===================================================== */
 
-function loadGigs(){
+async function loadGigs(){
 
-  const saved =
-    localStorage.getItem(
-      STORAGE_KEY
+  const container =
+    document.getElementById(
+      "gigsContainer"
     );
 
-  if(!saved){
+  container.innerHTML = `
 
-    localStorage.setItem(
-      STORAGE_KEY,
-      JSON.stringify(demoGigs)
+    <div class="empty">
+
+      <div style="font-size:40px;">
+        ⏳
+      </div>
+
+      <h3>
+        Loading gigs...
+      </h3>
+
+      <p>
+        Please wait.
+      </p>
+
+    </div>
+
+  `;
+
+
+  const result =
+    await db
+      .from("gigs")
+      .select(
+        "id,title,category,description,location,payment,whatsapp,created_at"
+      )
+      .order(
+        "created_at",
+        {
+          ascending:false
+        }
+      );
+
+
+  if(result.error){
+
+    console.error(
+      "Supabase load error:",
+      result.error
     );
 
-    return demoGigs;
+    container.innerHTML = `
+
+      <div class="empty">
+
+        <div style="font-size:40px;">
+          ⚠️
+        </div>
+
+        <h3>
+          Could not load gigs
+        </h3>
+
+        <p>
+          Please refresh the page and try again.
+        </p>
+
+      </div>
+
+    `;
+
+    showToast(
+      "Could not connect to the gig database."
+    );
+
+    return [];
 
   }
 
-  try{
 
-    const gigs =
-      JSON.parse(saved);
-
-    if(Array.isArray(gigs)){
-
-      return gigs;
-
-    }
-
-  }catch(error){
-
-    console.log(
-      "Could not load gigs."
-    );
-
-  }
-
-  return demoGigs;
-
-}
+  allGigs =
+    Array.isArray(result.data)
+      ? result.data
+      : [];
 
 
-/* =====================================================
-   SAVE GIGS
-   ===================================================== */
+  updateLocations();
 
-function saveGigs(gigs){
+  displayGigs();
 
-  localStorage.setItem(
-    STORAGE_KEY,
-    JSON.stringify(gigs)
-  );
+  return allGigs;
 
 }
 
@@ -1770,40 +1516,46 @@ function displayGigs(){
       )
       .value;
 
-  const gigs =
-    loadGigs();
 
   const filtered =
-    gigs.filter(function(gig){
+    allGigs.filter(
+      function(gig){
 
-      const matchesCategory =
-        selectedCategory === "All" ||
-        gig.category === selectedCategory;
+        const matchesCategory =
+          selectedCategory === "All" ||
+          gig.category === selectedCategory;
 
-      const searchableText = (
 
-        gig.title + " " +
-        gig.description + " " +
-        gig.category + " " +
-        gig.location
+        const searchableText = (
 
-      ).toLowerCase();
+          String(gig.title || "") + " " +
+          String(gig.description || "") + " " +
+          String(gig.category || "") + " " +
+          String(gig.location || "")
 
-      const matchesSearch =
-        !search ||
-        searchableText.includes(search);
+        ).toLowerCase();
 
-      const matchesLocation =
-        !location ||
-        gig.location === location;
 
-      return (
-        matchesCategory &&
-        matchesSearch &&
-        matchesLocation
-      );
+        const matchesSearch =
+          !search ||
+          searchableText.includes(
+            search
+          );
 
-    });
+
+        const matchesLocation =
+          !location ||
+          gig.location === location;
+
+
+        return (
+          matchesCategory &&
+          matchesSearch &&
+          matchesLocation
+        );
+
+      }
+    );
 
 
   if(filtered.length === 0){
@@ -1821,7 +1573,11 @@ function displayGigs(){
         </h3>
 
         <p>
-          Try another search or category.
+          ${
+            allGigs.length === 0
+              ? "No gigs have been posted yet. Be the first to post one!"
+              : "Try another search or category."
+          }
         </p>
 
       </div>
@@ -1834,99 +1590,83 @@ function displayGigs(){
 
 
   container.innerHTML =
-    filtered.map(function(gig){
+    filtered
+      .map(
+        function(gig){
 
-      const phone =
-        normalizeWhatsApp(
-          gig.whatsapp
-        );
-
-
-      const contactButton =
-        phone
-
-        ? `
-
-          <a
-            class="contact"
-            href="https://wa.me/${phone}"
-            target="_blank"
-            rel="noopener">
-
-            📱 WhatsApp
-
-          </a>
-
-        `
-
-        : `
-
-          <button
-            class="contact"
-            onclick="showToast('The poster has not added a WhatsApp number yet.')">
-
-            📱 Contact
-
-          </button>
-
-        `;
+          const phone =
+            normalizeWhatsApp(
+              gig.whatsapp
+            );
 
 
-      return `
+          const contactButton =
+            phone
 
-        <article class="gig">
+            ? `
 
-          <span class="gig-category">
-            ${escapeHTML(gig.category)}
-          </span>
+              <a
+                class="contact"
+                href="https://wa.me/${phone}"
+                target="_blank"
+                rel="noopener">
 
-          <h3>
-            ${escapeHTML(gig.title)}
-          </h3>
+                📱 WhatsApp
 
-          <p>
-            ${escapeHTML(gig.description)}
-          </p>
+              </a>
 
-          <div class="gig-info">
-            📍 ${escapeHTML(gig.location)}
-          </div>
+            `
 
-          <div class="gig-info pay">
-            💰 ₦${formatMoney(gig.payment)}
-          </div>
+            : `
 
-          <div class="gig-actions">
+              <button
+                class="contact"
+                onclick="showToast('The poster has not added a WhatsApp number yet.')">
 
-            ${contactButton}
+                📱 Contact
 
-            ${
-              gig.id
-                .toString()
-                .startsWith("local-")
+              </button>
 
-              ? `
+            `;
 
-                <button
-                  class="delete-btn"
-                  onclick="deleteGig('${gig.id}')">
 
-                  🗑️ Delete
+          return `
 
-                </button>
+            <article class="gig">
 
-              `
+              <span class="gig-category">
+                ${escapeHTML(gig.category)}
+              </span>
 
-              : ""
-            }
+              <h3>
+                ${escapeHTML(gig.title)}
+              </h3>
 
-          </div>
+              <p>
+                ${escapeHTML(gig.description)}
+              </p>
 
-        </article>
+              <div class="gig-info">
+                📍 ${escapeHTML(gig.location)}
+              </div>
 
-      `;
+              <div class="gig-info pay">
+                💰 ₦${formatMoney(gig.payment)}
+              </div>
 
-    }).join("");
+              <div class="gig-actions">
+
+                ${contactButton}
+
+              </div>
+
+            </article>
+
+          `;
+
+        }
+      )
+      .join("");
 
 }
 
@@ -1944,6 +1684,7 @@ function openPostGig(){
     .classList.add(
       "show"
     );
+
 
   document
     .getElementById(
@@ -1972,7 +1713,7 @@ function closePostGig(){
 
 
 /* =====================================================
-   SUBMIT GIG
+   SUBMIT GIG TO SUPABASE
    ===================================================== */
 
 document
@@ -1981,7 +1722,7 @@ document
   )
   .addEventListener(
     "submit",
-    function(event){
+    async function(event){
 
       event.preventDefault();
 
@@ -2056,43 +1797,64 @@ document
       }
 
 
-      const gig = {
-
-        id:
-          "local-" +
-          Date.now(),
-
-        title:title,
-
-        category:category,
-
-        description:description,
-
-        location:location,
-
-        payment:Number(
-          payment
-        ),
-
-        whatsapp:whatsapp,
-
-        createdAt:Date.now()
-
-      };
+      const publishButton =
+        document.getElementById(
+          "publishGigButton"
+        );
 
 
-      const gigs =
-        loadGigs();
+      publishButton.disabled =
+        true;
+
+      publishButton.textContent =
+        "⏳ Publishing...";
 
 
-      gigs.unshift(
-        gig
-      );
+      const result =
+        await db
+          .from("gigs")
+          .insert({
+
+            title:title,
+
+            category:category,
+
+            description:description,
+
+            location:location,
+
+            payment:Number(
+              payment
+            ),
+
+            whatsapp:whatsapp
+
+          })
+          .select()
+          .single();
 
 
-      saveGigs(
-        gigs
-      );
+      publishButton.disabled =
+        false;
+
+      publishButton.textContent =
+        "🚀 Publish Gig";
+
+
+      if(result.error){
+
+        console.error(
+          "Supabase insert error:",
+          result.error
+        );
+
+        showToast(
+          "Could not publish the gig. Please try again."
+        );
+
+        return;
+
+      }
 
 
       document
@@ -2105,72 +1867,27 @@ document
       closePostGig();
 
 
-      updateLocations();
-
-
-      displayGigs();
-
-
       showToast(
         "🎉 Your gig has been published!"
       );
 
 
-      setTimeout(function(){
+      await loadGigs();
 
-        goTo(
-          "recent"
-        );
 
-      },300);
+      setTimeout(
+        function(){
+
+          goTo(
+            "recent"
+          );
+
+        },
+        300
+      );
 
     }
   );
-
-
-/* =====================================================
-   DELETE
-   ===================================================== */
-
-function deleteGig(id){
-
-  const confirmed =
-    confirm(
-      "Delete this gig from this browser?"
-    );
-
-  if(!confirmed)
-    return;
-
-
-  const gigs =
-    loadGigs();
-
-
-  const updated =
-    gigs.filter(
-      function(gig){
-
-        return gig.id !== id;
-
-      }
-    );
-
-
-  saveGigs(
-    updated
-  );
-
-
-  updateLocations();
-
-  displayGigs();
-
-  showToast(
-    "Gig deleted."
-  );
-
-}
 
 
 /* =====================================================
@@ -2255,19 +1972,17 @@ function updateLocations(){
     select.value;
 
 
-  const gigs =
-    loadGigs();
-
-
   const locations = [
 
     ...new Set(
 
-      gigs
+      allGigs
         .map(
           function(gig){
 
-            return gig.location.trim();
+            return String(
+              gig.location || ""
+            ).trim();
 
           }
         )
@@ -2295,11 +2010,14 @@ function updateLocations(){
           "option"
         );
 
+
       option.value =
         location;
 
+
       option.textContent =
         "📍 " + location;
+
 
       select.appendChild(
         option
@@ -2336,7 +2054,7 @@ function normalizeWhatsApp(
 
 
   let phone =
-    number.replace(
+    String(number).replace(
       /\D/g,
       ""
     );
@@ -2389,6 +2107,7 @@ function useMyLocation(){
 
       const latitude =
         position.coords.latitude;
+
 
       const longitude =
         position.coords.longitude;
@@ -2485,7 +2204,9 @@ function escapeHTML(
   value
 ){
 
-  return String(value)
+  return String(
+    value ?? ""
+  )
 
     .replace(
       /&/g,
@@ -2561,12 +2282,17 @@ document
 
 
 /* =====================================================
-   START
+   START APPLICATION
    ===================================================== */
 
-updateLocations();
+async function startApp(){
 
-displayGigs();
+  await loadGigs();
+
+}
+
+
+startApp();
 
 </script>
 
