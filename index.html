@@ -657,6 +657,28 @@ footer ul{
   margin-bottom:20px;
 }
 
+/* DASHBOARD SAFETY WARNING */
+
+.dashboard-safety{
+  margin-top:18px;
+  padding:14px 16px;
+  background:#fff8df;
+  border:1px solid #f4df91;
+  border-radius:14px;
+  color:#5f4a00;
+}
+
+.dashboard-safety strong{
+  display:block;
+  margin-bottom:5px;
+  color:#735500;
+}
+
+.dashboard-safety p{
+  font-size:13px;
+  line-height:1.5;
+}
+
 .account-header strong{
   font-size:21px;
   display:block;
@@ -1019,6 +1041,25 @@ footer ul{
   </div>
 </section>
 
+<!-- SAFETY NOW APPEARS BEFORE THE GIGS -->
+
+<section class="section">
+  <div class="container">
+
+    <div class="safety">
+      <h3>🛡️ Stay Safe</h3>
+      <ul>
+        <li>Never send money to someone just to get a job.</li>
+        <li>Discuss the work, payment and expectations clearly.</li>
+        <li>Meet in a safe public place when appropriate.</li>
+        <li>Do not share passwords, PINs or sensitive banking information.</li>
+        <li>Report suspicious or fraudulent gigs.</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
 <section class="section" id="gigs">
   <div class="container">
 
@@ -1048,23 +1089,6 @@ footer ul{
 
     <div id="gigsContainer" class="gigs-grid">
       <div class="loading">Loading gigs...</div>
-    </div>
-
-  </div>
-</section>
-
-<section class="section">
-  <div class="container">
-
-    <div class="safety">
-      <h3>🛡️ Stay Safe</h3>
-      <ul>
-        <li>Never send money to someone just to get a job.</li>
-        <li>Discuss the work, payment and expectations clearly.</li>
-        <li>Meet in a safe public place when appropriate.</li>
-        <li>Do not share passwords, PINs or sensitive banking information.</li>
-        <li>Report suspicious or fraudulent gigs.</li>
-      </ul>
     </div>
 
   </div>
@@ -1653,6 +1677,9 @@ let allGigs = [];
 let selectedCategory = "All";
 
 let gigsLoading = false;
+
+/* REAL-TIME CHAT CHANNEL */
+let chatRealtimeChannel = null;
 
 
 /* =========================================================
@@ -3077,6 +3104,89 @@ async function sendMessage(){
 
 
 /* =========================================================
+   REAL-TIME CHAT
+========================================================= */
+
+function startChatRealtime(){
+
+  if(chatRealtimeChannel){
+    return;
+  }
+
+  chatRealtimeChannel =
+    db
+      .channel("naija-gigs-messages")
+      .on(
+        "postgres_changes",
+        {
+          event:"INSERT",
+          schema:"public",
+          table:"messages"
+        },
+        async function(payload){
+
+          const message =
+            payload.new;
+
+          if(!currentUser || !message){
+            return;
+          }
+
+          const otherUserId =
+            $("chatOtherUserId")?.value;
+
+          const currentGigId =
+            Number(
+              $("chatGigId")?.value
+            ) || 0;
+
+          if(!otherUserId){
+            return;
+          }
+
+          const isSameConversation =
+            (
+              message.sender_id === currentUser.id &&
+              message.receiver_id === otherUserId
+            ) ||
+            (
+              message.sender_id === otherUserId &&
+              message.receiver_id === currentUser.id
+            );
+
+          if(!isSameConversation){
+            return;
+          }
+
+          const messageGigId =
+            Number(message.gig_id) || 0;
+
+          if(
+            currentGigId &&
+            messageGigId !== currentGigId
+          ){
+            return;
+          }
+
+          const chatModal =
+            $("chatModal");
+
+          if(
+            chatModal &&
+            chatModal.classList.contains("show")
+          ){
+
+            await loadChatMessages();
+
+          }
+
+        }
+      )
+      .subscribe();
+}
+
+
+/* =========================================================
    TWO-WAY CHAT
 ========================================================= */
 
@@ -3657,6 +3767,20 @@ async function loadDashboard(){
 
       <span>${escapeHTML(email)}</span>
 
+      <div class="dashboard-safety">
+
+        <strong>⚠️ SAFETY WARNING</strong>
+
+        <p>
+          Before accepting a gig, confirm the exact location where
+          the job will take place. Make sure you know the area and,
+          when possible, meet in a safe public place. Tell someone
+          you trust where you are going before meeting someone you
+          do not know.
+        </p>
+
+      </div>
+
       <div style="margin-top:15px">
 
         <button
@@ -3867,6 +3991,8 @@ async function initialize(){
   await getCurrentUser();
 
   await updateAuthUI();
+
+  startChatRealtime();
 
   await loadGigs();
 
