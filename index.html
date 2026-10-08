@@ -1543,6 +1543,10 @@ let currentUser = null;
 let allGigs = [];
 let selectedCategory = "All";
 
+/* Prevent multiple gig-loading requests from running
+   at the same time. */
+let gigsLoading = false;
+
 
 /* =========================================================
    BASIC HELPERS
@@ -2264,40 +2268,103 @@ function detectLocation(){
 
 async function loadGigs(){
 
-  const result =
-    await db
-      .from("gigs")
-      .select(
-        "id,title,category,description,location,payment,whatsapp,created_at,user_id"
-      )
-      .order(
-        "created_at",
-        {
-          ascending:false
-        }
-      );
-
-  if(result.error){
-
-    console.error(result.error);
-
-    $("gigsContainer").innerHTML =
-      '<div class="empty">' +
-      '<strong>Could not load gigs.</strong><br>' +
-      'Please refresh the page and try again.' +
-      '</div>';
-
+  /* If another request is already loading the gigs,
+     do not start another one. */
+  if(gigsLoading){
     return;
   }
 
-  allGigs =
-    Array.isArray(result.data)
-      ? result.data
-      : [];
+  gigsLoading = true;
 
-  displayGigs();
+  const container =
+    $("gigsContainer");
+
+  if(container){
+
+    container.innerHTML =
+      '<div class="loading">Loading gigs...</div>';
+  }
+
+  try{
+
+    const result =
+      await db
+        .from("gigs")
+        .select(
+          "id,title,category,description,location,payment,whatsapp,created_at,user_id"
+        )
+        .order(
+          "created_at",
+          {
+            ascending:false
+          }
+        );
+
+    if(result.error){
+
+      console.error(
+        "Load gigs error:",
+        result.error
+      );
+
+      allGigs = [];
+
+      if(container){
+
+        container.innerHTML =
+          '<div class="empty">' +
+          '<strong>Could not load gigs.</strong><br>' +
+          escapeHTML(
+            result.error.message ||
+            "Please refresh the page and try again."
+          ) +
+          '</div>';
+
+      }
+
+      return;
+    }
+
+    allGigs =
+      Array.isArray(result.data)
+        ? result.data
+        : [];
+
+    renderGigs();
+
+  }catch(error){
+
+    console.error(
+      "Unexpected load gigs error:",
+      error
+    );
+
+    allGigs = [];
+
+    if(container){
+
+      container.innerHTML =
+        '<div class="empty">' +
+        '<strong>Could not load gigs.</strong><br>' +
+        escapeHTML(
+          error.message ||
+          "Please refresh the page and try again."
+        ) +
+        '</div>';
+
+    }
+
+  }finally{
+
+    gigsLoading = false;
+
+  }
 }
 
+
+/* =========================================================
+   DISPLAY / FILTER GIGS
+========================================================= */
 
 async function displayGigs(){
 
@@ -2308,12 +2375,45 @@ async function displayGigs(){
     return;
   }
 
-  if(allGigs.length === 0){
+  /* If gigs have not been loaded yet, load them once.
+     Do NOT recursively call displayGigs(). */
+  if(gigsLoading){
+    return;
+  }
+
+  if(!Array.isArray(allGigs)){
+    allGigs = [];
+  }
+
+  /* If we have never loaded the gigs yet, fetch them. */
+  if(
+    allGigs.length === 0 &&
+    !container.dataset.loaded
+  ){
 
     await loadGigs();
 
     return;
   }
+
+  renderGigs();
+}
+
+
+/* =========================================================
+   RENDER GIGS
+========================================================= */
+
+function renderGigs(){
+
+  const container =
+    $("gigsContainer");
+
+  if(!container){
+    return;
+  }
+
+  container.dataset.loaded = "true";
 
   const search =
     $("searchInput")
@@ -2364,12 +2464,25 @@ async function displayGigs(){
 
   if(filtered.length === 0){
 
-    container.innerHTML =
-      '<div class="empty">' +
-      '<div style="font-size:35px">🔎</div>' +
-      '<strong>No gigs found.</strong><br>' +
-      'Try another search or category.' +
-      '</div>';
+    if(allGigs.length === 0){
+
+      container.innerHTML =
+        '<div class="empty">' +
+        '<div style="font-size:35px">📭</div>' +
+        '<strong>No gigs have been posted yet.</strong><br>' +
+        'Be the first person to post a gig.' +
+        '</div>';
+
+    }else{
+
+      container.innerHTML =
+        '<div class="empty">' +
+        '<div style="font-size:35px">🔎</div>' +
+        '<strong>No gigs found.</strong><br>' +
+        'Try another search or category.' +
+        '</div>';
+
+    }
 
     return;
   }
