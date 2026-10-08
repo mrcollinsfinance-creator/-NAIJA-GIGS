@@ -7,7 +7,6 @@
 
 <title>Naija Gigs 🇳🇬 | Find Work. Find Workers.</title>
 
-<!-- SUPABASE -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
@@ -37,11 +36,14 @@ button{
   cursor:pointer;
 }
 
+button:disabled{
+  cursor:not-allowed;
+  opacity:.6;
+}
+
 a{
   color:inherit;
 }
-
-/* HEADER */
 
 header{
   background:#087f3d;
@@ -61,8 +63,6 @@ header{
   margin-top:3px;
 }
 
-/* NAVIGATION */
-
 nav{
   background:white;
   border-bottom:1px solid #e1e6e3;
@@ -72,7 +72,7 @@ nav{
 }
 
 .nav-inner{
-  max-width:1000px;
+  max-width:1100px;
   margin:auto;
   padding:10px 12px;
   display:flex;
@@ -101,15 +101,23 @@ nav{
   color:#087f3d;
 }
 
-/* CONTAINER */
+.nav-user{
+  margin-left:auto;
+  white-space:nowrap;
+  background:#087f3d;
+  color:white;
+  border:none;
+  padding:9px 13px;
+  border-radius:20px;
+  font-weight:bold;
+  font-size:13px;
+}
 
 .container{
   max-width:950px;
   margin:auto;
   padding:20px 15px 50px;
 }
-
-/* HERO */
 
 .hero{
   background:white;
@@ -166,8 +174,6 @@ nav{
   color:#b42318;
 }
 
-/* SEARCH */
-
 .search-box{
   background:white;
   border-radius:16px;
@@ -205,8 +211,6 @@ nav{
   resize:vertical;
 }
 
-/* SECTION */
-
 .section{
   scroll-margin-top:70px;
   margin-top:35px;
@@ -220,8 +224,6 @@ nav{
 .section-text{
   color:#5f6a64;
 }
-
-/* CATEGORIES */
 
 .categories{
   display:grid;
@@ -259,8 +261,6 @@ nav{
   font-size:14px;
 }
 
-/* GIGS */
-
 .gigs{
   display:grid;
   gap:14px;
@@ -282,6 +282,7 @@ nav{
 .gig p{
   color:#5f6a64;
   margin-bottom:10px;
+  white-space:pre-wrap;
 }
 
 .gig-info{
@@ -313,18 +314,54 @@ nav{
   margin-top:13px;
 }
 
-.contact{
+.contact,
+.action-btn{
   display:inline-block;
-  background:#087f3d;
   color:white;
   text-decoration:none;
-  padding:11px 15px;
+  padding:10px 14px;
   border-radius:9px;
   font-weight:bold;
   border:none;
+  font-size:14px;
 }
 
-/* INFO CARDS */
+.contact{
+  background:#087f3d;
+}
+
+.action-btn.secondary-action{
+  background:#e7f3ec;
+  color:#087f3d;
+}
+
+.action-btn.dark-action{
+  background:#17201b;
+}
+
+.action-btn.danger-action{
+  background:#ffe8e8;
+  color:#b42318;
+}
+
+.owner-badge{
+  display:inline-block;
+  font-size:12px;
+  background:#f1f4f2;
+  padding:4px 8px;
+  border-radius:20px;
+  margin-bottom:10px;
+}
+
+.time{
+  color:#7a847e;
+  font-size:12px;
+  margin-top:8px;
+}
+
+.saved{
+  color:#087f3d;
+}
 
 .info-grid{
   display:grid;
@@ -350,8 +387,6 @@ nav{
 .info-card p{
   color:#5f6a64;
 }
-
-/* STEPS */
 
 .steps{
   display:grid;
@@ -387,8 +422,6 @@ nav{
   color:#5f6a64;
 }
 
-/* FAQ */
-
 .faq{
   display:grid;
   gap:10px;
@@ -411,8 +444,6 @@ nav{
   margin-top:10px;
 }
 
-/* NOTICE */
-
 .notice{
   background:#fff8df;
   border:1px solid #f1df9b;
@@ -420,8 +451,6 @@ nav{
   padding:16px;
   margin-top:24px;
 }
-
-/* EMPTY */
 
 .empty{
   background:white;
@@ -432,7 +461,47 @@ nav{
   color:#66716b;
 }
 
-/* MODAL */
+.dashboard{
+  display:grid;
+  gap:14px;
+}
+
+.dashboard-card{
+  background:white;
+  border:1px solid #e1e6e3;
+  border-radius:16px;
+  padding:18px;
+}
+
+.dashboard-card h3{
+  margin-bottom:8px;
+}
+
+.dashboard-card p{
+  color:#66716b;
+}
+
+.list{
+  display:grid;
+  gap:10px;
+  margin-top:12px;
+}
+
+.list-item{
+  border:1px solid #e1e6e3;
+  border-radius:12px;
+  padding:13px;
+  background:#fafbfa;
+}
+
+.list-item strong{
+  display:block;
+  margin-bottom:4px;
+}
+
+.list-item small{
+  color:#6a746e;
+}
 
 .modal{
   display:none;
@@ -518,30 +587,66 @@ nav{
   flex:1;
 }
 
-/* TOAST */
+.auth-tabs{
+  display:flex;
+  gap:8px;
+  margin-bottom:18px;
+}
 
-.toast{
-  position:fixed;
-  left:50%;
-  bottom:20px;
-  transform:translateX(-50%) translateY(100px);
-  background:#17201b;
-  color:white;
-  padding:13px 18px;
+.auth-tab{
+  flex:1;
+  border:none;
+  padding:11px;
   border-radius:10px;
-  z-index:2000;
-  opacity:0;
-  transition:.3s;
-  max-width:90%;
-  text-align:center;
+  background:#f1f4f2;
+  font-weight:bold;
 }
 
-.toast.show{
-  opacity:1;
-  transform:translateX(-50%) translateY(0);
+.auth-tab.active{
+  background:#e7f3ec;
+  color:#087f3d;
 }
 
-/* FOOTER */
+.account-box{
+  background:#e7f3ec;
+  border-radius:14px;
+  padding:15px;
+  margin-bottom:15px;
+}
+
+.account-email{
+  font-size:13px;
+  color:#5f6a64;
+  word-break:break-word;
+}
+
+.notification-dot{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:18px;
+  height:18px;
+  border-radius:50%;
+  background:#b42318;
+  color:white;
+  font-size:10px;
+  margin-left:4px;
+}
+
+.rating{
+  display:flex;
+  gap:5px;
+  margin:8px 0;
+}
+
+.star{
+  font-size:24px;
+  cursor:pointer;
+}
+
+.star.active{
+  color:#f5b301;
+}
 
 footer{
   background:#17201b;
@@ -570,8 +675,6 @@ footer{
   color:white;
 }
 
-/* RESPONSIVE */
-
 @media(min-width:650px){
 
   .categories{
@@ -587,6 +690,10 @@ footer{
   }
 
   .steps{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .dashboard{
     grid-template-columns:repeat(2,1fr);
   }
 
@@ -625,12 +732,27 @@ footer{
       ➕ Post a Gig
     </button>
 
+    <button class="nav-link" onclick="openAuth()">
+      🔐 Account
+    </button>
+
+    <button class="nav-link" onclick="openDashboard()">
+      👤 My Account
+    </button>
+
     <button class="nav-link" onclick="goTo('how')">
       📖 How It Works
     </button>
 
     <button class="nav-link" onclick="goTo('about')">
       ℹ️ About
+    </button>
+
+    <button
+      class="nav-user"
+      id="authNavButton"
+      onclick="openAuth()">
+      🔐 Login
     </button>
 
   </div>
@@ -781,6 +903,16 @@ footer{
 
 </section>
 
+<section class="section" id="dashboard">
+
+  <h2 class="section-title">
+    👤 My Account
+  </h2>
+
+  <div id="dashboardContainer"></div>
+
+</section>
+
 <section class="section" id="how">
 
   <h2 class="section-title">
@@ -809,10 +941,10 @@ footer{
     <div class="step">
       <div class="step-number">2</div>
       <div>
-        <h3>📱 Contact the Poster</h3>
+        <h3>📩 Apply or Contact</h3>
         <p>
-          When you find a suitable gig,
-          contact the person who posted it.
+          Apply through Naija Gigs or contact
+          the poster through WhatsApp.
         </p>
       </div>
     </div>
@@ -941,10 +1073,20 @@ footer{
     </details>
 
     <details>
+      <summary>Do I need an account?</summary>
+      <p>
+        You can browse public gigs without an account.
+        An account is required for marketplace features
+        such as applying, saving, messaging and managing
+        your own gigs.
+      </p>
+    </details>
+
+    <details>
       <summary>Can I post a job?</summary>
       <p>
-        Yes. Tap "Post a Gig", complete the form
-        and publish your job.
+        Yes. Create an account, tap "Post a Gig",
+        complete the form and publish your job.
       </p>
     </details>
 
@@ -953,12 +1095,15 @@ footer{
       <p>
         Where a WhatsApp number has been provided,
         you can contact the gig poster through
-        WhatsApp.
+        WhatsApp. Logged-in users can also use
+        marketplace messaging.
       </p>
     </details>
 
     <details>
-      <summary>Does Naija Gigs guarantee a job?</summary>
+      <summary>
+        Does Naija Gigs guarantee a job?
+      </summary>
       <p>
         No. Naija Gigs connects people. Users are
         responsible for agreeing on the job,
@@ -1020,9 +1165,8 @@ footer{
   <div class="info-card">
 
     <p>
-      Naija Gigs uses a shared database to store
-      gig information so that publicly posted gigs
-      can be viewed by other users.
+      Naija Gigs uses Supabase to securely store
+      marketplace information and account information.
     </p>
 
     <br>
@@ -1030,13 +1174,13 @@ footer{
     <p>
       Do not enter passwords, bank PINs, card details,
       BVN, OTPs or other highly sensitive information
-      into a gig description.
+      into a gig description or message.
     </p>
 
     <br>
 
     <p>
-      Gig information may include the job title,
+      Public gig information may include the job title,
       description, location, payment amount and
       WhatsApp contact number provided by the poster.
     </p>
@@ -1088,7 +1232,10 @@ footer{
 
 </main>
 
-<!-- POST GIG MODAL -->
+
+<!-- =====================================================
+     POST GIG MODAL
+     ===================================================== -->
 
 <div class="modal" id="postGigModal">
 
@@ -1096,7 +1243,7 @@ footer{
 
     <div class="modal-header">
 
-      <h2>
+      <h2 id="postModalTitle">
         ➕ Post a Gig
       </h2>
 
@@ -1110,6 +1257,11 @@ footer{
 
     <form id="gigForm">
 
+      <input
+        type="hidden"
+        id="editingGigId"
+        value="">
+
       <div class="form-group">
 
         <label>
@@ -1120,6 +1272,7 @@ footer{
           id="gigTitle"
           class="input"
           type="text"
+          maxlength="120"
           placeholder="Example: Need a Flyer Designer"
           required>
 
@@ -1140,37 +1293,14 @@ footer{
             Select a category
           </option>
 
-          <option value="Cleaning">
-            🧹 Cleaning
-          </option>
-
-          <option value="Delivery">
-            🚚 Delivery
-          </option>
-
-          <option value="Online Work">
-            💻 Online Work
-          </option>
-
-          <option value="Repairs">
-            🔧 Repairs
-          </option>
-
-          <option value="Design">
-            🎨 Design
-          </option>
-
-          <option value="Tutoring">
-            👨‍🏫 Tutoring
-          </option>
-
-          <option value="Moving">
-            📦 Moving
-          </option>
-
-          <option value="Other">
-            ➕ Other
-          </option>
+          <option value="Cleaning">🧹 Cleaning</option>
+          <option value="Delivery">🚚 Delivery</option>
+          <option value="Online Work">💻 Online Work</option>
+          <option value="Repairs">🔧 Repairs</option>
+          <option value="Design">🎨 Design</option>
+          <option value="Tutoring">👨‍🏫 Tutoring</option>
+          <option value="Moving">📦 Moving</option>
+          <option value="Other">➕ Other</option>
 
         </select>
 
@@ -1185,6 +1315,7 @@ footer{
         <textarea
           id="gigDescription"
           class="textarea"
+          maxlength="2000"
           placeholder="Explain what you need done..."
           required></textarea>
 
@@ -1202,6 +1333,7 @@ footer{
             id="gigLocation"
             class="input"
             type="text"
+            maxlength="150"
             placeholder="Example: Port Harcourt"
             required>
 
@@ -1227,6 +1359,7 @@ footer{
           class="input"
           type="number"
           min="0"
+          step="1"
           placeholder="Example: 5000"
           required>
 
@@ -1242,6 +1375,7 @@ footer{
           id="gigWhatsapp"
           class="input"
           type="tel"
+          maxlength="20"
           placeholder="Example: 08012345678"
           required>
 
@@ -1271,7 +1405,456 @@ footer{
 
 </div>
 
+
+<!-- =====================================================
+     AUTH MODAL
+     ===================================================== -->
+
+<div class="modal" id="authModal">
+
+  <div class="modal-content">
+
+    <div class="modal-header">
+
+      <h2>
+        🔐 Naija Gigs Account
+      </h2>
+
+      <button
+        class="close"
+        onclick="closeAuth()">
+        ✕
+      </button>
+
+    </div>
+
+    <div id="loggedOutAuth">
+
+      <div class="auth-tabs">
+
+        <button
+          class="auth-tab active"
+          id="loginTab"
+          onclick="showAuthMode('login')">
+          Login
+        </button>
+
+        <button
+          class="auth-tab"
+          id="signupTab"
+          onclick="showAuthMode('signup')">
+          Sign Up
+        </button>
+
+      </div>
+
+      <div id="signupNameGroup"
+           class="form-group"
+           style="display:none;">
+
+        <label>
+          Full name
+        </label>
+
+        <input
+          id="authName"
+          class="input"
+          type="text"
+          placeholder="Your name">
+
+      </div>
+
+      <div class="form-group">
+
+        <label>
+          Email
+        </label>
+
+        <input
+          id="authEmail"
+          class="input"
+          type="email"
+          placeholder="you@example.com"
+          autocomplete="email"
+          required>
+
+      </div>
+
+      <div class="form-group">
+
+        <label>
+          Password
+        </label>
+
+        <input
+          id="authPassword"
+          class="input"
+          type="password"
+          placeholder="At least 6 characters"
+          autocomplete="current-password"
+          required>
+
+      </div>
+
+      <button
+        class="btn primary"
+        style="width:100%;"
+        id="authSubmitButton"
+        onclick="submitAuth()">
+        🔐 Login
+      </button>
+
+    </div>
+
+    <div id="loggedInAuth"
+         style="display:none;">
+
+      <div class="account-box">
+
+        <strong>
+          ✅ You are logged in
+        </strong>
+
+        <div
+          class="account-email"
+          id="accountEmail">
+        </div>
+
+      </div>
+
+      <button
+        class="btn secondary"
+        style="width:100%;margin-bottom:10px;"
+        onclick="closeAuth();openDashboard();">
+        👤 Open My Account
+      </button>
+
+      <button
+        class="btn danger"
+        style="width:100%;"
+        onclick="logout()">
+        🚪 Logout
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =====================================================
+     APPLICATION MODAL
+     ===================================================== -->
+
+<div class="modal" id="applicationModal">
+
+  <div class="modal-content">
+
+    <div class="modal-header">
+
+      <h2>
+        📩 Apply for Gig
+      </h2>
+
+      <button
+        class="close"
+        onclick="closeApplication()">
+        ✕
+      </button>
+
+    </div>
+
+    <div id="applicationGigInfo"
+         class="account-box">
+    </div>
+
+    <form id="applicationForm">
+
+      <input
+        type="hidden"
+        id="applicationGigId">
+
+      <div class="form-group">
+
+        <label>
+          Message to the gig poster
+        </label>
+
+        <textarea
+          id="applicationMessage"
+          class="textarea"
+          maxlength="1500"
+          placeholder="Tell the poster why you are suitable for this gig..."
+          required></textarea>
+
+      </div>
+
+      <button
+        type="submit"
+        class="btn primary"
+        style="width:100%;"
+        id="applicationSubmitButton">
+        📩 Send Application
+      </button>
+
+    </form>
+
+  </div>
+
+</div>
+
+
+<!-- =====================================================
+     MESSAGE MODAL
+     ===================================================== -->
+
+<div class="modal" id="messageModal">
+
+  <div class="modal-content">
+
+    <div class="modal-header">
+
+      <h2>
+        💬 Message
+      </h2>
+
+      <button
+        class="close"
+        onclick="closeMessage()">
+        ✕
+      </button>
+
+    </div>
+
+    <div
+      id="messageHistory"
+      class="list"
+      style="max-height:350px;overflow-y:auto;">
+    </div>
+
+    <form id="messageForm"
+          style="margin-top:15px;">
+
+      <input
+        type="hidden"
+        id="messageReceiverId">
+
+      <input
+        type="hidden"
+        id="messageGigId">
+
+      <div class="form-group">
+
+        <textarea
+          id="messageText"
+          class="textarea"
+          maxlength="1500"
+          placeholder="Write your message..."
+          required></textarea>
+
+      </div>
+
+      <button
+        type="submit"
+        class="btn primary"
+        style="width:100%;"
+        id="messageSubmitButton">
+        📤 Send Message
+      </button>
+
+    </form>
+
+  </div>
+
+</div>
+
+
+<!-- =====================================================
+     REPORT MODAL
+     ===================================================== -->
+
+<div class="modal" id="reportModal">
+
+  <div class="modal-content">
+
+    <div class="modal-header">
+
+      <h2>
+        🚩 Report Gig
+      </h2>
+
+      <button
+        class="close"
+        onclick="closeReport()">
+        ✕
+      </button>
+
+    </div>
+
+    <form id="reportForm">
+
+      <input
+        type="hidden"
+        id="reportGigId">
+
+      <div class="form-group">
+
+        <label>
+          Reason
+        </label>
+
+        <select
+          id="reportReason"
+          class="select"
+          required>
+
+          <option value="">
+            Select a reason
+          </option>
+
+          <option value="Scam">
+            🚨 Possible scam
+          </option>
+
+          <option value="Fraud">
+            💳 Fraudulent offer
+          </option>
+
+          <option value="Illegal">
+            ⚠️ Illegal job
+          </option>
+
+          <option value="Spam">
+            📢 Spam
+          </option>
+
+          <option value="Harassment">
+            🛑 Harassment
+          </option>
+
+          <option value="Other">
+            ➕ Other
+          </option>
+
+        </select>
+
+      </div>
+
+      <div class="form-group">
+
+        <label>
+          Details
+        </label>
+
+        <textarea
+          id="reportDetails"
+          class="textarea"
+          maxlength="1500"
+          placeholder="Explain the problem if necessary..."></textarea>
+
+      </div>
+
+      <button
+        type="submit"
+        class="btn danger"
+        style="width:100%;">
+        🚩 Submit Report
+      </button>
+
+    </form>
+
+  </div>
+
+</div>
+
+
+<!-- =====================================================
+     REVIEW MODAL
+     ===================================================== -->
+
+<div class="modal" id="reviewModal">
+
+  <div class="modal-content">
+
+    <div class="modal-header">
+
+      <h2>
+        ⭐ Leave a Review
+      </h2>
+
+      <button
+        class="close"
+        onclick="closeReview()">
+        ✕
+      </button>
+
+    </div>
+
+    <form id="reviewForm">
+
+      <input
+        type="hidden"
+        id="reviewUserId">
+
+      <input
+        type="hidden"
+        id="reviewGigId">
+
+      <div class="form-group">
+
+        <label>
+          Rating
+        </label>
+
+        <div class="rating"
+             id="ratingStars">
+
+          <span class="star" data-rating="1">★</span>
+          <span class="star" data-rating="2">★</span>
+          <span class="star" data-rating="3">★</span>
+          <span class="star" data-rating="4">★</span>
+          <span class="star" data-rating="5">★</span>
+
+        </div>
+
+        <input
+          type="hidden"
+          id="reviewRating"
+          value="0">
+
+      </div>
+
+      <div class="form-group">
+
+        <label>
+          Review
+        </label>
+
+        <textarea
+          id="reviewText"
+          class="textarea"
+          maxlength="1000"
+          placeholder="Share your experience..."></textarea>
+
+      </div>
+
+      <button
+        type="submit"
+        class="btn primary"
+        style="width:100%;">
+        ⭐ Submit Review
+      </button>
+
+    </form>
+
+  </div>
+
+</div>
+
+
 <div class="toast" id="toast"></div>
+
 
 <footer>
 
@@ -1321,16 +1904,17 @@ footer{
 
 </footer>
 
+
 <script>
 
 /* =====================================================
    NAIJA GIGS
-   SUPABASE SHARED DATABASE VERSION
+   MARKETPLACE VERSION
    ===================================================== */
 
 
 /* =====================================================
-   SUPABASE CONNECTION
+   SUPABASE
    ===================================================== */
 
 const SUPABASE_URL =
@@ -1347,14 +1931,18 @@ const db =
 
 
 /* =====================================================
-   APP STATE
+   STATE
    ===================================================== */
 
-let selectedCategory =
-  "All";
+let selectedCategory = "All";
 
-let allGigs =
-  [];
+let allGigs = [];
+
+let currentUser = null;
+
+let authMode = "login";
+
+let toastTimer;
 
 
 /* =====================================================
@@ -1378,7 +1966,436 @@ function goTo(id){
 
 
 /* =====================================================
-   LOAD GIGS FROM SUPABASE
+   AUTH
+   ===================================================== */
+
+async function getCurrentUser(){
+
+  const result =
+    await db.auth.getUser();
+
+  if(result.error){
+
+    currentUser = null;
+
+  }else{
+
+    currentUser =
+      result.data.user || null;
+
+  }
+
+  updateAuthUI();
+
+  return currentUser;
+
+}
+
+
+function updateAuthUI(){
+
+  const button =
+    document.getElementById(
+      "authNavButton"
+    );
+
+  if(!button)
+    return;
+
+  if(currentUser){
+
+    button.textContent =
+      "👤 " +
+      (
+        currentUser.user_metadata?.full_name ||
+        "Account"
+      );
+
+  }else{
+
+    button.textContent =
+      "🔐 Login";
+
+  }
+
+
+  const loggedOut =
+    document.getElementById(
+      "loggedOutAuth"
+    );
+
+  const loggedIn =
+    document.getElementById(
+      "loggedInAuth"
+    );
+
+  if(loggedOut && loggedIn){
+
+    if(currentUser){
+
+      loggedOut.style.display =
+        "none";
+
+      loggedIn.style.display =
+        "block";
+
+      document.getElementById(
+        "accountEmail"
+      ).textContent =
+        currentUser.email || "";
+
+    }else{
+
+      loggedOut.style.display =
+        "block";
+
+      loggedIn.style.display =
+        "none";
+
+    }
+
+  }
+
+}
+
+
+function openAuth(){
+
+  updateAuthUI();
+
+  document
+    .getElementById(
+      "authModal"
+    )
+    .classList.add(
+      "show"
+    );
+
+}
+
+
+function closeAuth(){
+
+  document
+    .getElementById(
+      "authModal"
+    )
+    .classList.remove(
+      "show"
+    );
+
+}
+
+
+function showAuthMode(mode){
+
+  authMode =
+    mode;
+
+  const loginTab =
+    document.getElementById(
+      "loginTab"
+    );
+
+  const signupTab =
+    document.getElementById(
+      "signupTab"
+    );
+
+  const nameGroup =
+    document.getElementById(
+      "signupNameGroup"
+    );
+
+  const submit =
+    document.getElementById(
+      "authSubmitButton"
+    );
+
+
+  if(mode === "signup"){
+
+    loginTab.classList.remove(
+      "active"
+    );
+
+    signupTab.classList.add(
+      "active"
+    );
+
+    nameGroup.style.display =
+      "block";
+
+    submit.textContent =
+      "🚀 Create Account";
+
+  }else{
+
+    signupTab.classList.remove(
+      "active"
+    );
+
+    loginTab.classList.add(
+      "active"
+    );
+
+    nameGroup.style.display =
+      "none";
+
+    submit.textContent =
+      "🔐 Login";
+
+  }
+
+}
+
+
+async function submitAuth(){
+
+  const email =
+    document
+      .getElementById(
+        "authEmail"
+      )
+      .value
+      .trim();
+
+  const password =
+    document
+      .getElementById(
+        "authPassword"
+      )
+      .value;
+
+  const name =
+    document
+      .getElementById(
+        "authName"
+      )
+      .value
+      .trim();
+
+
+  if(!email || !password){
+
+    showToast(
+      "Please enter your email and password."
+    );
+
+    return;
+
+  }
+
+
+  if(password.length < 6){
+
+    showToast(
+      "Password must be at least 6 characters."
+    );
+
+    return;
+
+  }
+
+
+  const button =
+    document.getElementById(
+      "authSubmitButton"
+    );
+
+  button.disabled =
+    true;
+
+
+  if(authMode === "signup"){
+
+    button.textContent =
+      "⏳ Creating account...";
+
+
+    const result =
+      await db.auth.signUp({
+
+        email:email,
+
+        password:password,
+
+        options:{
+          data:{
+            full_name:name
+          }
+        }
+
+      });
+
+
+    button.disabled =
+      false;
+
+    button.textContent =
+      "🚀 Create Account";
+
+
+    if(result.error){
+
+      console.error(
+        result.error
+      );
+
+      showToast(
+        result.error.message ||
+        "Could not create account."
+      );
+
+      return;
+
+    }
+
+
+    if(result.data.user){
+
+      currentUser =
+        result.data.user;
+
+    }
+
+
+    if(result.data.session){
+
+      showToast(
+        "🎉 Account created successfully!"
+      );
+
+      closeAuth();
+
+    }else{
+
+      showToast(
+        "Account created. Check your email if confirmation is required."
+      );
+
+    }
+
+
+  }else{
+
+    button.textContent =
+      "⏳ Logging in...";
+
+
+    const result =
+      await db.auth.signInWithPassword({
+
+        email:email,
+
+        password:password
+
+      });
+
+
+    button.disabled =
+      false;
+
+    button.textContent =
+      "🔐 Login";
+
+
+    if(result.error){
+
+      console.error(
+        result.error
+      );
+
+      showToast(
+        result.error.message ||
+        "Login failed."
+      );
+
+      return;
+
+    }
+
+
+    currentUser =
+      result.data.user;
+
+
+    showToast(
+      "✅ Welcome back!"
+    );
+
+
+    closeAuth();
+
+  }
+
+
+  updateAuthUI();
+
+  await loadGigs();
+
+  await loadDashboard();
+
+}
+
+
+async function logout(){
+
+  const result =
+    await db.auth.signOut();
+
+  if(result.error){
+
+    showToast(
+      "Could not log out."
+    );
+
+    return;
+
+  }
+
+
+  currentUser =
+    null;
+
+
+  updateAuthUI();
+
+  closeAuth();
+
+  await loadGigs();
+
+  await loadDashboard();
+
+  showToast(
+    "👋 You have been logged out."
+  );
+
+}
+
+
+/* =====================================================
+   AUTH STATE CHANGES
+   ===================================================== */
+
+db.auth.onAuthStateChange(
+  function(event,session){
+
+    currentUser =
+      session?.user || null;
+
+    updateAuthUI();
+
+    loadDashboard();
+
+    displayGigs();
+
+  }
+);
+
+
+/* =====================================================
+   LOAD GIGS
    ===================================================== */
 
 async function loadGigs(){
@@ -1387,6 +2404,7 @@ async function loadGigs(){
     document.getElementById(
       "gigsContainer"
     );
+
 
   container.innerHTML = `
 
@@ -1413,7 +2431,7 @@ async function loadGigs(){
     await db
       .from("gigs")
       .select(
-        "id,title,category,description,location,payment,whatsapp,created_at"
+        "id,title,category,description,location,payment,whatsapp,created_at,user_id"
       )
       .order(
         "created_at",
@@ -1429,6 +2447,7 @@ async function loadGigs(){
       "Supabase load error:",
       result.error
     );
+
 
     container.innerHTML = `
 
@@ -1450,9 +2469,11 @@ async function loadGigs(){
 
     `;
 
+
     showToast(
       "Could not connect to the gig database."
     );
+
 
     return [];
 
@@ -1490,6 +2511,40 @@ function formatMoney(amount){
 
 
 /* =====================================================
+   TIME
+   ===================================================== */
+
+function formatDate(date){
+
+  if(!date)
+    return "";
+
+  const value =
+    new Date(date);
+
+  if(
+    Number.isNaN(
+      value.getTime()
+    )
+  ){
+
+    return "";
+
+  }
+
+
+  return value.toLocaleString(
+    "en-NG",
+    {
+      dateStyle:"medium",
+      timeStyle:"short"
+    }
+  );
+
+}
+
+
+/* =====================================================
    DISPLAY GIGS
    ===================================================== */
 
@@ -1500,6 +2555,10 @@ function displayGigs(){
       "gigsContainer"
     );
 
+  if(!container)
+    return;
+
+
   const search =
     document
       .getElementById(
@@ -1508,6 +2567,7 @@ function displayGigs(){
       .value
       .toLowerCase()
       .trim();
+
 
   const location =
     document
@@ -1600,6 +2660,12 @@ function displayGigs(){
             );
 
 
+          const isOwner =
+            currentUser &&
+            gig.user_id &&
+            gig.user_id === currentUser.id;
+
+
           const contactButton =
             phone
 
@@ -1609,7 +2675,7 @@ function displayGigs(){
                 class="contact"
                 href="https://wa.me/${phone}"
                 target="_blank"
-                rel="noopener">
+                rel="noopener noreferrer">
 
                 📱 WhatsApp
 
@@ -1617,17 +2683,79 @@ function displayGigs(){
 
             `
 
-            : `
+            : "";
+
+
+          let marketplaceButtons = "";
+
+
+          if(isOwner){
+
+            marketplaceButtons = `
 
               <button
-                class="contact"
-                onclick="showToast('The poster has not added a WhatsApp number yet.')">
+                class="action-btn secondary-action"
+                onclick="editGig(${gig.id})">
 
-                📱 Contact
+                ✏️ Edit
+
+              </button>
+
+              <button
+                class="action-btn danger-action"
+                onclick="deleteGig(${gig.id})">
+
+                🗑️ Delete
 
               </button>
 
             `;
+
+          }else{
+
+            marketplaceButtons = `
+
+              <button
+                class="action-btn secondary-action"
+                onclick="saveGig(${gig.id})">
+
+                💾 Save
+
+              </button>
+
+              <button
+                class="action-btn dark-action"
+                onclick="openApplication(${gig.id})">
+
+                📩 Apply
+
+              </button>
+
+              ${
+                gig.user_id
+                ? `
+                  <button
+                    class="action-btn secondary-action"
+                    onclick="openMessageForGig(${gig.id})">
+
+                    💬 Message
+
+                  </button>
+                `
+                : ""
+              }
+
+              <button
+                class="action-btn danger-action"
+                onclick="openReport(${gig.id})">
+
+                🚩 Report
+
+              </button>
+
+            `;
+
+          }
 
 
           return `
@@ -1637,6 +2765,16 @@ function displayGigs(){
               <span class="gig-category">
                 ${escapeHTML(gig.category)}
               </span>
+
+              ${
+                isOwner
+                ? `
+                  <span class="owner-badge">
+                    👤 Your gig
+                  </span>
+                `
+                : ""
+              }
 
               <h3>
                 ${escapeHTML(gig.title)}
@@ -1654,9 +2792,15 @@ function displayGigs(){
                 💰 ₦${formatMoney(gig.payment)}
               </div>
 
+              <div class="time">
+                🕐 ${escapeHTML(formatDate(gig.created_at))}
+              </div>
+
               <div class="gig-actions">
 
                 ${contactButton}
+
+                ${marketplaceButtons}
 
               </div>
 
@@ -1672,10 +2816,45 @@ function displayGigs(){
 
 
 /* =====================================================
-   OPEN POST FORM
+   POST GIG
    ===================================================== */
 
-function openPostGig(){
+async function openPostGig(){
+
+  if(!currentUser){
+
+    showToast(
+      "Please create an account or login before posting a gig."
+    );
+
+    openAuth();
+
+    return;
+
+  }
+
+
+  document.getElementById(
+    "editingGigId"
+  ).value = "";
+
+
+  document.getElementById(
+    "gigForm"
+  ).reset();
+
+
+  document.getElementById(
+    "postModalTitle"
+  ).textContent =
+    "➕ Post a Gig";
+
+
+  document.getElementById(
+    "publishGigButton"
+  ).textContent =
+    "🚀 Publish Gig";
+
 
   document
     .getElementById(
@@ -1686,18 +2865,21 @@ function openPostGig(){
     );
 
 
-  document
-    .getElementById(
-      "gigTitle"
-    )
-    .focus();
+  setTimeout(
+    function(){
+
+      document
+        .getElementById(
+          "gigTitle"
+        )
+        .focus();
+
+    },
+    100
+  );
 
 }
 
-
-/* =====================================================
-   CLOSE POST FORM
-   ===================================================== */
 
 function closePostGig(){
 
@@ -1713,7 +2895,7 @@ function closePostGig(){
 
 
 /* =====================================================
-   SUBMIT GIG TO SUPABASE
+   SUBMIT / EDIT GIG
    ===================================================== */
 
 document
@@ -1725,6 +2907,21 @@ document
     async function(event){
 
       event.preventDefault();
+
+
+      if(!currentUser){
+
+        showToast(
+          "Please login first."
+        );
+
+        closePostGig();
+
+        openAuth();
+
+        return;
+
+      }
 
 
       const title =
@@ -1763,11 +2960,13 @@ document
 
 
       const payment =
-        document
-          .getElementById(
-            "gigPayment"
-          )
-          .value;
+        Number(
+          document
+            .getElementById(
+              "gigPayment"
+            )
+            .value
+        );
 
 
       const whatsapp =
@@ -1779,17 +2978,38 @@ document
           .trim();
 
 
+      const editingId =
+        document
+          .getElementById(
+            "editingGigId"
+          )
+          .value;
+
+
       if(
         !title ||
         !category ||
         !description ||
         !location ||
-        !payment ||
         !whatsapp
       ){
 
         showToast(
           "Please fill in every field."
+        );
+
+        return;
+
+      }
+
+
+      if(
+        !Number.isFinite(payment) ||
+        payment < 0
+      ){
+
+        showToast(
+          "Please enter a valid payment amount."
         );
 
         return;
@@ -1806,50 +3026,91 @@ document
       publishButton.disabled =
         true;
 
+
       publishButton.textContent =
-        "⏳ Publishing...";
+        editingId
+        ? "⏳ Saving..."
+        : "⏳ Publishing...";
 
 
-      const result =
-        await db
-          .from("gigs")
-          .insert({
+      let result;
 
-            title:title,
 
-            category:category,
+      if(editingId){
 
-            description:description,
+        result =
+          await db
+            .from("gigs")
+            .update({
 
-            location:location,
+              title:title,
 
-            payment:Number(
-              payment
-            ),
+              category:category,
 
-            whatsapp:whatsapp
+              description:description,
 
-          })
-          .select()
-          .single();
+              location:location,
+
+              payment:payment,
+
+              whatsapp:whatsapp
+
+            })
+            .eq(
+              "id",
+              editingId
+            )
+            .eq(
+              "user_id",
+              currentUser.id
+            );
+
+      }else{
+
+        result =
+          await db
+            .from("gigs")
+            .insert({
+
+              title:title,
+
+              category:category,
+
+              description:description,
+
+              location:location,
+
+              payment:payment,
+
+              whatsapp:whatsapp,
+
+              user_id:currentUser.id
+
+            });
+
+      }
 
 
       publishButton.disabled =
         false;
 
+
       publishButton.textContent =
-        "🚀 Publish Gig";
+        editingId
+        ? "💾 Save Changes"
+        : "🚀 Publish Gig";
 
 
       if(result.error){
 
         console.error(
-          "Supabase insert error:",
+          "Gig save error:",
           result.error
         );
 
+
         showToast(
-          "Could not publish the gig. Please try again."
+          "Could not save the gig. Please try again."
         );
 
         return;
@@ -1864,11 +3125,18 @@ document
         .reset();
 
 
+      document.getElementById(
+        "editingGigId"
+      ).value = "";
+
+
       closePostGig();
 
 
       showToast(
-        "🎉 Your gig has been published!"
+        editingId
+        ? "✅ Gig updated successfully!"
+        : "🎉 Your gig has been published!"
       );
 
 
@@ -1878,9 +3146,7 @@ document
       setTimeout(
         function(){
 
-          goTo(
-            "recent"
-          );
+          goTo("recent");
 
         },
         300
@@ -1888,6 +3154,2139 @@ document
 
     }
   );
+
+
+/* =====================================================
+   EDIT GIG
+   ===================================================== */
+
+function editGig(id){
+
+  if(!currentUser){
+
+    openAuth();
+
+    return;
+
+  }
+
+
+  const gig =
+    allGigs.find(
+      function(item){
+
+        return String(item.id) ===
+          String(id);
+
+      }
+    );
+
+
+  if(!gig){
+
+    showToast(
+      "Gig could not be found."
+    );
+
+    return;
+
+  }
+
+
+  if(
+    !gig.user_id ||
+    gig.user_id !== currentUser.id
+  ){
+
+    showToast(
+      "You can only edit your own gigs."
+    );
+
+    return;
+
+  }
+
+
+  document.getElementById(
+    "editingGigId"
+  ).value =
+    gig.id;
+
+
+  document.getElementById(
+    "gigTitle"
+  ).value =
+    gig.title || "";
+
+
+  document.getElementById(
+    "gigCategory"
+  ).value =
+    gig.category || "";
+
+
+  document.getElementById(
+    "gigDescription"
+  ).value =
+    gig.description || "";
+
+
+  document.getElementById(
+    "gigLocation"
+  ).value =
+    gig.location || "";
+
+
+  document.getElementById(
+    "gigPayment"
+  ).value =
+    gig.payment || "";
+
+
+  document.getElementById(
+    "gigWhatsapp"
+  ).value =
+    gig.whatsapp || "";
+
+
+  document.getElementById(
+    "postModalTitle"
+  ).textContent =
+    "✏️ Edit Your Gig";
+
+
+  document.getElementById(
+    "publishGigButton"
+  ).textContent =
+    "💾 Save Changes";
+
+
+  document
+    .getElementById(
+      "postGigModal"
+    )
+    .classList.add(
+      "show"
+    );
+
+}
+
+
+/* =====================================================
+   DELETE GIG
+   ===================================================== */
+
+async function deleteGig(id){
+
+  if(!currentUser){
+
+    openAuth();
+
+    return;
+
+  }
+
+
+  const gig =
+    allGigs.find(
+      function(item){
+
+        return String(item.id) ===
+          String(id);
+
+      }
+    );
+
+
+  if(!gig){
+
+    showToast(
+      "Gig not found."
+    );
+
+    return;
+
+  }
+
+
+  if(
+    gig.user_id !== currentUser.id
+  ){
+
+    showToast(
+      "You can only delete your own gigs."
+    );
+
+    return;
+
+  }
+
+
+  const confirmed =
+    window.confirm(
+      "Are you sure you want to delete this gig?"
+    );
+
+
+  if(!confirmed)
+    return;
+
+
+  const result =
+    await db
+      .from("gigs")
+      .delete()
+      .eq(
+        "id",
+        id
+      )
+      .eq(
+        "user_id",
+        currentUser.id
+      );
+
+
+  if(result.error){
+
+    console.error(
+      result.error
+    );
+
+    showToast(
+      "Could not delete the gig."
+    );
+
+    return;
+
+  }
+
+
+  showToast(
+    "🗑️ Gig deleted."
+  );
+
+
+  await loadGigs();
+
+}
+
+
+/* =====================================================
+   APPLICATIONS
+   ===================================================== */
+
+function openApplication(id){
+
+  if(!currentUser){
+
+    showToast(
+      "Please login before applying."
+    );
+
+    openAuth();
+
+    return;
+
+  }
+
+
+  const gig =
+    allGigs.find(
+      function(item){
+
+        return String(item.id) ===
+          String(id);
+
+      }
+    );
+
+
+  if(!gig){
+
+    showToast(
+      "Gig not found."
+    );
+
+    return;
+
+  }
+
+
+  if(
+    gig.user_id &&
+    gig.user_id === currentUser.id
+  ){
+
+    showToast(
+      "You cannot apply to your own gig."
+    );
+
+    return;
+
+  }
+
+
+  document.getElementById(
+    "applicationGigId"
+  ).value =
+    gig.id;
+
+
+  document.getElementById(
+    "applicationMessage"
+  ).value =
+    "";
+
+
+  document.getElementById(
+    "applicationGigInfo"
+  ).innerHTML = `
+
+    <strong>
+      ${escapeHTML(gig.title)}
+    </strong>
+
+    <br>
+
+    📍 ${escapeHTML(gig.location)}
+
+    <br>
+
+    💰 ₦${formatMoney(gig.payment)}
+
+  `;
+
+
+  document
+    .getElementById(
+      "applicationModal"
+    )
+    .classList.add(
+      "show"
+    );
+
+}
+
+
+function closeApplication(){
+
+  document
+    .getElementById(
+      "applicationModal"
+    )
+    .classList.remove(
+      "show"
+    );
+
+}
+
+
+document
+  .getElementById(
+    "applicationForm"
+  )
+  .addEventListener(
+    "submit",
+    async function(event){
+
+      event.preventDefault();
+
+
+      if(!currentUser){
+
+        showToast(
+          "Please login first."
+        );
+
+        return;
+
+      }
+
+
+      const gigId =
+        document.getElementById(
+          "applicationGigId"
+        ).value;
+
+
+      const message =
+        document
+          .getElementById(
+            "applicationMessage"
+          )
+          .value
+          .trim();
+
+
+      if(!gigId || !message){
+
+        showToast(
+          "Please write a message."
+        );
+
+        return;
+
+      }
+
+
+      const button =
+        document.getElementById(
+          "applicationSubmitButton"
+        );
+
+
+      button.disabled =
+        true;
+
+      button.textContent =
+        "⏳ Sending...";
+
+
+      const result =
+        await db
+          .from("applications")
+          .insert({
+
+            gig_id:Number(gigId),
+
+            applicant_id:
+              currentUser.id,
+
+            message:message,
+
+            status:"pending"
+
+          });
+
+
+      button.disabled =
+        false;
+
+      button.textContent =
+        "📩 Send Application";
+
+
+      if(result.error){
+
+        console.error(
+          result.error
+        );
+
+
+        if(
+          result.error.code ===
+          "23505"
+        ){
+
+          showToast(
+            "You have already applied for this gig."
+          );
+
+        }else{
+
+          showToast(
+            "Could not send application."
+          );
+
+        }
+
+        return;
+
+      }
+
+
+      closeApplication();
+
+
+      showToast(
+        "📩 Application sent successfully!"
+      );
+
+
+      await loadDashboard();
+
+    }
+  );
+
+
+/* =====================================================
+   SAVE GIG
+   ===================================================== */
+
+async function saveGig(id){
+
+  if(!currentUser){
+
+    showToast(
+      "Please login to save gigs."
+    );
+
+    openAuth();
+
+    return;
+
+  }
+
+
+  const existing =
+    await db
+      .from("saved_gigs")
+      .select("id")
+      .eq(
+        "user_id",
+        currentUser.id
+      )
+      .eq(
+        "gig_id",
+        id
+      )
+      .maybeSingle();
+
+
+  if(existing.error){
+
+    console.error(
+      existing.error
+    );
+
+    showToast(
+      "Could not check saved gigs."
+    );
+
+    return;
+
+  }
+
+
+  if(existing.data){
+
+    const result =
+      await db
+        .from("saved_gigs")
+        .delete()
+        .eq(
+          "id",
+          existing.data.id
+        );
+
+
+    if(result.error){
+
+      showToast(
+        "Could not remove saved gig."
+      );
+
+      return;
+
+    }
+
+
+    showToast(
+      "💾 Gig removed from saved gigs."
+    );
+
+
+  }else{
+
+    const result =
+      await db
+        .from("saved_gigs")
+        .insert({
+
+          user_id:
+            currentUser.id,
+
+          gig_id:Number(id)
+
+        });
+
+
+    if(result.error){
+
+      console.error(
+        result.error
+      );
+
+      showToast(
+        "Could not save the gig."
+      );
+
+      return;
+
+    }
+
+
+    showToast(
+      "💾 Gig saved!"
+    );
+
+  }
+
+
+  await loadDashboard();
+
+}
+
+
+/* =====================================================
+   MESSAGING
+   ===================================================== */
+
+async function openMessageForGig(id){
+
+  if(!currentUser){
+
+    showToast(
+      "Please login to send messages."
+    );
+
+    openAuth();
+
+    return;
+
+  }
+
+
+  const gig =
+    allGigs.find(
+      function(item){
+
+        return String(item.id) ===
+          String(id);
+
+      }
+    );
+
+
+  if(!gig || !gig.user_id){
+
+    showToast(
+      "Messaging is not available for this gig."
+    );
+
+    return;
+
+  }
+
+
+  if(
+    gig.user_id === currentUser.id
+  ){
+
+    showToast(
+      "This is your own gig."
+    );
+
+    return;
+
+  }
+
+
+  document.getElementById(
+    "messageReceiverId"
+  ).value =
+    gig.user_id;
+
+
+  document.getElementById(
+    "messageGigId"
+  ).value =
+    gig.id;
+
+
+  document.getElementById(
+    "messageText"
+  ).value =
+    "";
+
+
+  document
+    .getElementById(
+      "messageModal"
+    )
+    .classList.add(
+      "show"
+    );
+
+
+  await loadMessageHistory(
+    gig.user_id,
+    gig.id
+  );
+
+}
+
+
+function closeMessage(){
+
+  document
+    .getElementById(
+      "messageModal"
+    )
+    .classList.remove(
+      "show"
+    );
+
+}
+
+
+async function loadMessageHistory(
+  otherUserId,
+  gigId
+){
+
+  const history =
+    document.getElementById(
+      "messageHistory"
+    );
+
+
+  history.innerHTML = `
+
+    <div class="empty">
+      ⏳ Loading messages...
+    </div>
+
+  `;
+
+
+  const first =
+    await db
+      .from("messages")
+      .select(
+        "id,sender_id,receiver_id,message,created_at"
+      )
+      .eq(
+        "gig_id",
+        gigId
+      )
+      .or(
+        "and(sender_id.eq." +
+        currentUser.id +
+        ",receiver_id.eq." +
+        otherUserId +
+        "),and(sender_id.eq." +
+        otherUserId +
+        ",receiver_id.eq." +
+        currentUser.id +
+        ")"
+      )
+      .order(
+        "created_at",
+        {
+          ascending:true
+        }
+      );
+
+
+  if(first.error){
+
+    console.error(
+      first.error
+    );
+
+    history.innerHTML = `
+
+      <div class="empty">
+        Could not load messages.
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  if(!first.data || first.data.length === 0){
+
+    history.innerHTML = `
+
+      <div class="empty">
+        💬 No messages yet.<br>
+        Start the conversation.
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  history.innerHTML =
+    first.data
+      .map(
+        function(item){
+
+          const mine =
+            item.sender_id ===
+            currentUser.id;
+
+
+          return `
+
+            <div class="list-item"
+                 style="${
+                   mine
+                     ? "border-color:#087f3d;background:#e7f3ec;"
+                     : ""
+                 }">
+
+              <strong>
+                ${mine ? "You" : "Other user"}
+              </strong>
+
+              <div>
+                ${escapeHTML(item.message)}
+              </div>
+
+              <small>
+                ${escapeHTML(
+                  formatDate(item.created_at)
+                )}
+              </small>
+
+            </div>
+
+          `;
+
+        }
+      )
+      .join("");
+
+}
+
+
+document
+  .getElementById(
+    "messageForm"
+  )
+  .addEventListener(
+    "submit",
+    async function(event){
+
+      event.preventDefault();
+
+
+      if(!currentUser){
+
+        showToast(
+          "Please login first."
+        );
+
+        return;
+
+      }
+
+
+      const receiver =
+        document.getElementById(
+          "messageReceiverId"
+        ).value;
+
+
+      const gigId =
+        document.getElementById(
+          "messageGigId"
+        ).value;
+
+
+      const message =
+        document
+          .getElementById(
+            "messageText"
+          )
+          .value
+          .trim();
+
+
+      if(
+        !receiver ||
+        !message
+      ){
+
+        showToast(
+          "Please write a message."
+        );
+
+        return;
+
+      }
+
+
+      const button =
+        document.getElementById(
+          "messageSubmitButton"
+        );
+
+
+      button.disabled =
+        true;
+
+      button.textContent =
+        "⏳ Sending...";
+
+
+      const result =
+        await db
+          .from("messages")
+          .insert({
+
+            sender_id:
+              currentUser.id,
+
+            receiver_id:
+              receiver,
+
+            gig_id:
+              Number(gigId),
+
+            message:message
+
+          });
+
+
+      button.disabled =
+        false;
+
+      button.textContent =
+        "📤 Send Message";
+
+
+      if(result.error){
+
+        console.error(
+          result.error
+        );
+
+        showToast(
+          "Could not send message."
+        );
+
+        return;
+
+      }
+
+
+      document.getElementById(
+        "messageText"
+      ).value =
+        "";
+
+
+      showToast(
+        "📤 Message sent."
+      );
+
+
+      await loadMessageHistory(
+        receiver,
+        gigId
+      );
+
+    }
+  );
+
+
+/* =====================================================
+   REPORT
+   ===================================================== */
+
+function openReport(id){
+
+  if(!currentUser){
+
+    showToast(
+      "Please login to report a gig."
+    );
+
+    openAuth();
+
+    return;
+
+  }
+
+
+  document.getElementById(
+    "reportGigId"
+  ).value =
+    id;
+
+
+  document.getElementById(
+    "reportReason"
+  ).value =
+    "";
+
+
+  document.getElementById(
+    "reportDetails"
+  ).value =
+    "";
+
+
+  document
+    .getElementById(
+      "reportModal"
+    )
+    .classList.add(
+      "show"
+    );
+
+}
+
+
+function closeReport(){
+
+  document
+    .getElementById(
+      "reportModal"
+    )
+    .classList.remove(
+      "show"
+    );
+
+}
+
+
+document
+  .getElementById(
+    "reportForm"
+  )
+  .addEventListener(
+    "submit",
+    async function(event){
+
+      event.preventDefault();
+
+
+      if(!currentUser){
+
+        showToast(
+          "Please login first."
+        );
+
+        return;
+
+      }
+
+
+      const gigId =
+        document.getElementById(
+          "reportGigId"
+        ).value;
+
+
+      const reason =
+        document.getElementById(
+          "reportReason"
+        ).value;
+
+
+      const details =
+        document
+          .getElementById(
+            "reportDetails"
+          )
+          .value
+          .trim();
+
+
+      if(!gigId || !reason){
+
+        showToast(
+          "Please select a reason."
+        );
+
+        return;
+
+      }
+
+
+      const gig =
+        allGigs.find(
+          function(item){
+
+            return String(item.id) ===
+              String(gigId);
+
+          }
+        );
+
+
+      const result =
+        await db
+          .from("reports")
+          .insert({
+
+            reporter_id:
+              currentUser.id,
+
+            gig_id:
+              Number(gigId),
+
+            reported_user_id:
+              gig?.user_id || null,
+
+            reason:reason,
+
+            details:details
+
+          });
+
+
+      if(result.error){
+
+        console.error(
+          result.error
+        );
+
+        showToast(
+          "Could not submit report."
+        );
+
+        return;
+
+      }
+
+
+      closeReport();
+
+
+      showToast(
+        "🚩 Report submitted. Thank you."
+      );
+
+    }
+  );
+
+
+/* =====================================================
+   REVIEWS
+   ===================================================== */
+
+function openReview(
+  userId,
+  gigId
+){
+
+  if(!currentUser){
+
+    showToast(
+      "Please login to leave a review."
+    );
+
+    openAuth();
+
+    return;
+
+  }
+
+
+  if(
+    userId === currentUser.id
+  ){
+
+    showToast(
+      "You cannot review yourself."
+    );
+
+    return;
+
+  }
+
+
+  document.getElementById(
+    "reviewUserId"
+  ).value =
+    userId;
+
+
+  document.getElementById(
+    "reviewGigId"
+  ).value =
+    gigId || "";
+
+
+  document.getElementById(
+    "reviewRating"
+  ).value =
+    "0";
+
+
+  document.getElementById(
+    "reviewText"
+  ).value =
+    "";
+
+
+  document
+    .querySelectorAll(
+      "#ratingStars .star"
+    )
+    .forEach(
+      function(star){
+
+        star.classList.remove(
+          "active"
+        );
+
+      }
+    );
+
+
+  document
+    .getElementById(
+      "reviewModal"
+    )
+    .classList.add(
+      "show"
+    );
+
+}
+
+
+function closeReview(){
+
+  document
+    .getElementById(
+      "reviewModal"
+    )
+    .classList.remove(
+      "show"
+    );
+
+}
+
+
+document
+  .querySelectorAll(
+    "#ratingStars .star"
+  )
+  .forEach(
+    function(star){
+
+      star.addEventListener(
+        "click",
+        function(){
+
+          const rating =
+            Number(
+              this.dataset.rating
+            );
+
+
+          document.getElementById(
+            "reviewRating"
+          ).value =
+            rating;
+
+
+          document
+            .querySelectorAll(
+              "#ratingStars .star"
+            )
+            .forEach(
+              function(item){
+
+                item.classList.toggle(
+                  "active",
+                  Number(
+                    item.dataset.rating
+                  ) <= rating
+                );
+
+              }
+            );
+
+        }
+      );
+
+    }
+  );
+
+
+document
+  .getElementById(
+    "reviewForm"
+  )
+  .addEventListener(
+    "submit",
+    async function(event){
+
+      event.preventDefault();
+
+
+      if(!currentUser){
+
+        showToast(
+          "Please login first."
+        );
+
+        return;
+
+      }
+
+
+      const reviewedUserId =
+        document.getElementById(
+          "reviewUserId"
+        ).value;
+
+
+      const gigId =
+        document.getElementById(
+          "reviewGigId"
+        ).value;
+
+
+      const rating =
+        Number(
+          document.getElementById(
+            "reviewRating"
+          ).value
+        );
+
+
+      const review =
+        document
+          .getElementById(
+            "reviewText"
+          )
+          .value
+          .trim();
+
+
+      if(
+        !reviewedUserId ||
+        !rating
+      ){
+
+        showToast(
+          "Please choose a rating."
+        );
+
+        return;
+
+      }
+
+
+      const result =
+        await db
+          .from("reviews")
+          .insert({
+
+            reviewer_id:
+              currentUser.id,
+
+            reviewed_user_id:
+              reviewedUserId,
+
+            gig_id:
+              gigId
+              ? Number(gigId)
+              : null,
+
+            rating:rating,
+
+            review:review
+
+          });
+
+
+      if(result.error){
+
+        console.error(
+          result.error
+        );
+
+
+        if(
+          result.error.code ===
+          "23505"
+        ){
+
+          showToast(
+            "You already reviewed this user for this gig."
+          );
+
+        }else{
+
+          showToast(
+            "Could not submit review."
+          );
+
+        }
+
+        return;
+
+      }
+
+
+      closeReview();
+
+
+      showToast(
+        "⭐ Review submitted."
+      );
+
+    }
+  );
+
+
+/* =====================================================
+   DASHBOARD
+   ===================================================== */
+
+function openDashboard(){
+
+  goTo("dashboard");
+
+  loadDashboard();
+
+}
+
+
+async function loadDashboard(){
+
+  const container =
+    document.getElementById(
+      "dashboardContainer"
+    );
+
+
+  if(!container)
+    return;
+
+
+  if(!currentUser){
+
+    container.innerHTML = `
+
+      <div class="dashboard">
+
+        <div class="dashboard-card">
+
+          <h3>
+            🔐 Create your account
+          </h3>
+
+          <p>
+            Login or sign up to manage gigs,
+            apply for work, save gigs and use
+            marketplace messaging.
+          </p>
+
+          <br>
+
+          <button
+            class="btn primary"
+            onclick="openAuth()">
+
+            🔐 Login / Sign Up
+
+          </button>
+
+        </div>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  container.innerHTML = `
+
+    <div class="dashboard">
+
+      <div class="dashboard-card">
+
+        <h3>
+          👤 Your Account
+        </h3>
+
+        <p>
+          ${escapeHTML(
+            currentUser.email || ""
+          )}
+        </p>
+
+        <br>
+
+        <button
+          class="btn danger"
+          onclick="logout()">
+
+          🚪 Logout
+
+        </button>
+
+      </div>
+
+      <div class="dashboard-card">
+
+        <h3>
+          🔔 Notifications
+        </h3>
+
+        <div id="notificationList">
+          Loading...
+        </div>
+
+      </div>
+
+      <div class="dashboard-card">
+
+        <h3>
+          📋 My Applications
+        </h3>
+
+        <div id="myApplications">
+          Loading...
+        </div>
+
+      </div>
+
+      <div class="dashboard-card">
+
+        <h3>
+          💾 Saved Gigs
+        </h3>
+
+        <div id="savedGigs">
+          Loading...
+        </div>
+
+      </div>
+
+      <div class="dashboard-card">
+
+        <h3>
+          🧰 My Gigs
+        </h3>
+
+        <div id="myGigs">
+          Loading...
+        </div>
+
+      </div>
+
+      <div class="dashboard-card">
+
+        <h3>
+          💬 Recent Messages
+        </h3>
+
+        <div id="myMessages">
+          Loading...
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+
+  await Promise.all([
+
+    loadNotifications(),
+
+    loadApplications(),
+
+    loadSavedGigs(),
+
+    loadMyGigs(),
+
+    loadMessages()
+
+  ]);
+
+}
+
+
+/* =====================================================
+   NOTIFICATIONS
+   ===================================================== */
+
+async function loadNotifications(){
+
+  const box =
+    document.getElementById(
+      "notificationList"
+    );
+
+
+  if(!box || !currentUser)
+    return;
+
+
+  const result =
+    await db
+      .from("notifications")
+      .select(
+        "id,title,message,is_read,created_at"
+      )
+      .eq(
+        "user_id",
+        currentUser.id
+      )
+      .order(
+        "created_at",
+        {
+          ascending:false
+        }
+      )
+      .limit(10);
+
+
+  if(result.error){
+
+    box.innerHTML =
+      "Could not load notifications.";
+
+    return;
+
+  }
+
+
+  if(
+    !result.data ||
+    result.data.length === 0
+  ){
+
+    box.innerHTML =
+      "<small>No notifications yet.</small>";
+
+    return;
+
+  }
+
+
+  box.innerHTML =
+    result.data
+      .map(
+        function(item){
+
+          return `
+
+            <div class="list-item"
+                 onclick="markNotificationRead(${item.id})">
+
+              <strong>
+                ${escapeHTML(item.title)}
+              </strong>
+
+              <div>
+                ${escapeHTML(item.message)}
+              </div>
+
+              <small>
+                ${escapeHTML(
+                  formatDate(item.created_at)
+                )}
+              </small>
+
+            </div>
+
+          `;
+
+        }
+      )
+      .join("");
+
+}
+
+
+async function markNotificationRead(id){
+
+  if(!currentUser)
+    return;
+
+
+  await db
+    .from("notifications")
+    .update({
+      is_read:true
+    })
+    .eq(
+      "id",
+      id
+    )
+    .eq(
+      "user_id",
+      currentUser.id
+    );
+
+
+  await loadNotifications();
+
+}
+
+
+/* =====================================================
+   APPLICATION DASHBOARD
+   ===================================================== */
+
+async function loadApplications(){
+
+  const box =
+    document.getElementById(
+      "myApplications"
+    );
+
+
+  if(!box || !currentUser)
+    return;
+
+
+  const result =
+    await db
+      .from("applications")
+      .select(
+        "id,gig_id,message,status,created_at"
+      )
+      .eq(
+        "applicant_id",
+        currentUser.id
+      )
+      .order(
+        "created_at",
+        {
+          ascending:false
+        }
+      )
+      .limit(20);
+
+
+  if(result.error){
+
+    box.innerHTML =
+      "Could not load applications.";
+
+    return;
+
+  }
+
+
+  if(
+    !result.data ||
+    result.data.length === 0
+  ){
+
+    box.innerHTML =
+      "<small>You have not applied for any gigs yet.</small>";
+
+    return;
+
+  }
+
+
+  const gigIds =
+    result.data.map(
+      function(item){
+
+        return item.gig_id;
+
+      }
+    );
+
+
+  const gigsResult =
+    await db
+      .from("gigs")
+      .select(
+        "id,title"
+      )
+      .in(
+        "id",
+        gigIds
+      );
+
+
+  const gigMap = {};
+
+
+  (gigsResult.data || [])
+    .forEach(
+      function(gig){
+
+        gigMap[gig.id] =
+          gig.title;
+
+      }
+    );
+
+
+  box.innerHTML =
+    result.data
+      .map(
+        function(item){
+
+          return `
+
+            <div class="list-item">
+
+              <strong>
+                ${escapeHTML(
+                  gigMap[item.gig_id] ||
+                  "Gig"
+                )}
+              </strong>
+
+              <div>
+                Status:
+                <strong>
+                  ${escapeHTML(item.status)}
+                </strong>
+              </div>
+
+              <small>
+                ${escapeHTML(
+                  formatDate(item.created_at)
+                )}
+              </small>
+
+            </div>
+
+          `;
+
+        }
+      )
+      .join("");
+
+}
+
+
+/* =====================================================
+   SAVED GIGS DASHBOARD
+   ===================================================== */
+
+async function loadSavedGigs(){
+
+  const box =
+    document.getElementById(
+      "savedGigs"
+    );
+
+
+  if(!box || !currentUser)
+    return;
+
+
+  const result =
+    await db
+      .from("saved_gigs")
+      .select(
+        "id,gig_id,created_at"
+      )
+      .eq(
+        "user_id",
+        currentUser.id
+      )
+      .order(
+        "created_at",
+        {
+          ascending:false
+        }
+      );
+
+
+  if(result.error){
+
+    box.innerHTML =
+      "Could not load saved gigs.";
+
+    return;
+
+  }
+
+
+  if(
+    !result.data ||
+    result.data.length === 0
+  ){
+
+    box.innerHTML =
+      "<small>No saved gigs yet.</small>";
+
+    return;
+
+  }
+
+
+  const ids =
+    result.data.map(
+      function(item){
+
+        return item.gig_id;
+
+      }
+    );
+
+
+  const gigsResult =
+    await db
+      .from("gigs")
+      .select(
+        "id,title,location,payment"
+      )
+      .in(
+        "id",
+        ids
+      );
+
+
+  if(gigsResult.error){
+
+    box.innerHTML =
+      "Could not load saved gig details.";
+
+    return;
+
+  }
+
+
+  box.innerHTML =
+    (gigsResult.data || [])
+      .map(
+        function(gig){
+
+          return `
+
+            <div class="list-item">
+
+              <strong>
+                ${escapeHTML(gig.title)}
+              </strong>
+
+              <small>
+                📍 ${escapeHTML(gig.location)}
+                ·
+                💰 ₦${formatMoney(gig.payment)}
+              </small>
+
+            </div>
+
+          `;
+
+        }
+      )
+      .join("");
+
+}
+
+
+/* =====================================================
+   MY GIGS
+   ===================================================== */
+
+async function loadMyGigs(){
+
+  const box =
+    document.getElementById(
+      "myGigs"
+    );
+
+
+  if(!box || !currentUser)
+    return;
+
+
+  const result =
+    await db
+      .from("gigs")
+      .select(
+        "id,title,category,location,payment,created_at"
+      )
+      .eq(
+        "user_id",
+        currentUser.id
+      )
+      .order(
+        "created_at",
+        {
+          ascending:false
+        }
+      );
+
+
+  if(result.error){
+
+    box.innerHTML =
+      "Could not load your gigs.";
+
+    return;
+
+  }
+
+
+  if(
+    !result.data ||
+    result.data.length === 0
+  ){
+
+    box.innerHTML =
+      "<small>You have not posted a gig yet.</small>";
+
+    return;
+
+  }
+
+
+  box.innerHTML =
+    result.data
+      .map(
+        function(gig){
+
+          return `
+
+            <div class="list-item">
+
+              <strong>
+                ${escapeHTML(gig.title)}
+              </strong>
+
+              <small>
+                ${escapeHTML(gig.category)}
+                ·
+                📍 ${escapeHTML(gig.location)}
+                ·
+                ₦${formatMoney(gig.payment)}
+              </small>
+
+              <div style="margin-top:8px;">
+
+                <button
+                  class="action-btn secondary-action"
+                  onclick="editGig(${gig.id})">
+
+                  ✏️ Edit
+
+                </button>
+
+                <button
+                  class="action-btn danger-action"
+                  onclick="deleteGig(${gig.id})">
+
+                  🗑️ Delete
+
+                </button>
+
+              </div>
+
+            </div>
+
+          `;
+
+        }
+      )
+      .join("");
+
+}
+
+
+/* =====================================================
+   MESSAGES DASHBOARD
+   ===================================================== */
+
+async function loadMessages(){
+
+  const box =
+    document.getElementById(
+      "myMessages"
+    );
+
+
+  if(!box || !currentUser)
+    return;
+
+
+  const result =
+    await db
+      .from("messages")
+      .select(
+        "id,sender_id,receiver_id,message,gig_id,created_at"
+      )
+      .or(
+        "sender_id.eq." +
+        currentUser.id +
+        ",receiver_id.eq." +
+        currentUser.id
+      )
+      .order(
+        "created_at",
+        {
+          ascending:false
+        }
+      )
+      .limit(10);
+
+
+  if(result.error){
+
+    box.innerHTML =
+      "Could not load messages.";
+
+    return;
+
+  }
+
+
+  if(
+    !result.data ||
+    result.data.length === 0
+  ){
+
+    box.innerHTML =
+      "<small>No messages yet.</small>";
+
+    return;
+
+  }
+
+
+  box.innerHTML =
+    result.data
+      .map(
+        function(item){
+
+          const mine =
+            item.sender_id ===
+            currentUser.id;
+
+
+          return `
+
+            <div class="list-item">
+
+              <strong>
+                ${mine ? "You sent" : "New message"}
+              </strong>
+
+              <div>
+                ${escapeHTML(item.message)}
+              </div>
+
+              <small>
+                ${escapeHTML(
+                  formatDate(item.created_at)
+                )}
+              </small>
+
+            </div>
+
+          `;
+
+        }
+      )
+      .join("");
+
+}
 
 
 /* =====================================================
@@ -2154,9 +5553,6 @@ function useMyLocation(){
    TOAST
    ===================================================== */
 
-let toastTimer;
-
-
 function showToast(
   message
 ){
@@ -2190,7 +5586,7 @@ function showToast(
         );
 
       },
-      3000
+      3500
     );
 
 }
@@ -2237,24 +5633,32 @@ function escapeHTML(
 
 
 /* =====================================================
-   CLOSE MODAL OUTSIDE
+   MODAL OUTSIDE CLICK
    ===================================================== */
 
 document
-  .getElementById(
-    "postGigModal"
+  .querySelectorAll(
+    ".modal"
   )
-  .addEventListener(
-    "click",
-    function(event){
+  .forEach(
+    function(modal){
 
-      if(
-        event.target === this
-      ){
+      modal.addEventListener(
+        "click",
+        function(event){
 
-        closePostGig();
+          if(
+            event.target === this
+          ){
 
-      }
+            this.classList.remove(
+              "show"
+            );
+
+          }
+
+        }
+      );
 
     }
   );
@@ -2273,7 +5677,19 @@ document
         event.key === "Escape"
       ){
 
-        closePostGig();
+        document
+          .querySelectorAll(
+            ".modal.show"
+          )
+          .forEach(
+            function(modal){
+
+              modal.classList.remove(
+                "show"
+              );
+
+            }
+          );
 
       }
 
@@ -2282,12 +5698,16 @@ document
 
 
 /* =====================================================
-   START APPLICATION
+   START
    ===================================================== */
 
 async function startApp(){
 
+  await getCurrentUser();
+
   await loadGigs();
+
+  await loadDashboard();
 
 }
 
