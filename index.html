@@ -703,6 +703,66 @@ footer ul{
   color:var(--muted);
 }
 
+/* CHAT */
+
+.chat-messages{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  max-height:420px;
+  overflow-y:auto;
+  padding:10px;
+  background:#f6f8f7;
+  border:1px solid var(--border);
+  border-radius:14px;
+  margin-bottom:15px;
+}
+
+.chat-empty{
+  text-align:center;
+  color:var(--muted);
+  padding:25px 10px;
+}
+
+.chat-row{
+  display:flex;
+}
+
+.chat-row.sent{
+  justify-content:flex-end;
+}
+
+.chat-row.received{
+  justify-content:flex-start;
+}
+
+.chat-bubble{
+  max-width:80%;
+  padding:10px 13px;
+  border-radius:14px;
+  font-size:14px;
+  word-break:break-word;
+}
+
+.chat-row.sent .chat-bubble{
+  background:var(--green);
+  color:white;
+  border-bottom-right-radius:4px;
+}
+
+.chat-row.received .chat-bubble{
+  background:white;
+  border:1px solid var(--border);
+  border-bottom-left-radius:4px;
+}
+
+.chat-time{
+  display:block;
+  font-size:10px;
+  opacity:.7;
+  margin-top:4px;
+}
+
 /* TOAST */
 
 .toast{
@@ -798,6 +858,10 @@ footer ul{
 
   .hero h1{
     font-size:43px;
+  }
+
+  .chat-bubble{
+    max-width:88%;
   }
 
   /* MOBILE POST-A-GIG FIX ONLY */
@@ -1456,6 +1520,51 @@ footer ul{
 </div>
 
 
+<!-- CHAT MODAL -->
+
+<div class="modal" id="chatModal">
+  <div class="modal-box">
+
+    <button class="modal-close" onclick="closeModal('chatModal')">×</button>
+
+    <h2 class="modal-title">💬 Chat</h2>
+
+    <input type="hidden" id="chatOtherUserId">
+    <input type="hidden" id="chatGigId">
+
+    <div id="chatNotice"></div>
+
+    <div id="chatMessages" class="chat-messages">
+      <div class="chat-empty">Loading conversation...</div>
+    </div>
+
+    <div class="form-group">
+      <label>Your message</label>
+
+      <textarea
+        class="textarea"
+        id="chatText"
+        placeholder="Write your message..."></textarea>
+    </div>
+
+    <div class="modal-actions">
+      <button
+        class="btn"
+        onclick="closeModal('chatModal')">
+        Close
+      </button>
+
+      <button
+        class="btn btn-primary"
+        onclick="sendChatMessage()">
+        Send Message
+      </button>
+    </div>
+
+  </div>
+</div>
+
+
 <!-- REPORT MODAL -->
 
 <div class="modal" id="reportModal">
@@ -1543,8 +1652,6 @@ let currentUser = null;
 let allGigs = [];
 let selectedCategory = "All";
 
-/* Prevent multiple gig-loading requests from running
-   at the same time. */
 let gigsLoading = false;
 
 
@@ -2174,12 +2281,6 @@ $("gigForm").addEventListener(
 
       $("gigForm").reset();
 
-      /*
-        IMPORTANT FIX:
-        Always fetch the latest gigs from Supabase after
-        publishing or editing instead of only rendering
-        the old allGigs array.
-      */
       await loadGigs();
 
       await loadDashboard();
@@ -2274,8 +2375,6 @@ function detectLocation(){
 
 async function loadGigs(){
 
-  /* If another request is already loading the gigs,
-     do not start another one. */
   if(gigsLoading){
     return;
   }
@@ -2381,8 +2480,6 @@ async function displayGigs(){
     return;
   }
 
-  /* If gigs have not been loaded yet, load them once.
-     Do NOT recursively call displayGigs(). */
   if(gigsLoading){
     return;
   }
@@ -2391,7 +2488,6 @@ async function displayGigs(){
     allGigs = [];
   }
 
-  /* If we have never loaded the gigs yet, fetch them. */
   if(
     allGigs.length === 0 &&
     !container.dataset.loaded
@@ -2560,7 +2656,7 @@ function renderGigCard(gig){
           ? `
           <button
             class="small-btn"
-            onclick="openMessage('${escapeHTML(gig.user_id)}',${Number(gig.id)})">
+            onclick="openChat('${escapeHTML(gig.user_id)}',${Number(gig.id)})">
             💬 Message
           </button>
           `
@@ -2975,6 +3071,287 @@ async function sendMessage(){
   );
 
   closeModal("messageModal");
+
+  await loadDashboard();
+}
+
+
+/* =========================================================
+   TWO-WAY CHAT
+========================================================= */
+
+async function openChat(otherUserId,gigId=0){
+
+  await getCurrentUser();
+
+  if(!currentUser){
+
+    openAuth();
+
+    showNotice(
+      "authNotice",
+      "Please log in to chat.",
+      "error"
+    );
+
+    return;
+  }
+
+  if(!otherUserId){
+
+    showToast(
+      "This gig does not have an owner account attached yet."
+    );
+
+    return;
+  }
+
+  if(otherUserId === currentUser.id){
+
+    showToast(
+      "You cannot chat with yourself."
+    );
+
+    return;
+  }
+
+  $("chatOtherUserId").value =
+    otherUserId;
+
+  $("chatGigId").value =
+    Number(gigId) || "";
+
+  $("chatText").value =
+    "";
+
+  clearNotice("chatNotice");
+
+  openModal("chatModal");
+
+  await loadChatMessages();
+}
+
+
+async function loadChatMessages(){
+
+  await getCurrentUser();
+
+  if(!currentUser){
+    return;
+  }
+
+  const otherUserId =
+    $("chatOtherUserId").value;
+
+  const gigId =
+    Number($("chatGigId").value);
+
+  if(!otherUserId){
+    return;
+  }
+
+  const container =
+    $("chatMessages");
+
+  if(!container){
+    return;
+  }
+
+  container.innerHTML =
+    '<div class="chat-empty">Loading conversation...</div>';
+
+  let query =
+    db
+      .from("messages")
+      .select("*")
+      .or(
+        "and(sender_id.eq." +
+        currentUser.id +
+        ",receiver_id.eq." +
+        otherUserId +
+        "),and(sender_id.eq." +
+        otherUserId +
+        ",receiver_id.eq." +
+        currentUser.id +
+        ")"
+      )
+      .order(
+        "created_at",
+        {
+          ascending:true
+        }
+      );
+
+  if(gigId){
+
+    query =
+      query.eq(
+        "gig_id",
+        gigId
+      );
+
+  }
+
+  const result =
+    await query;
+
+  if(result.error){
+
+    console.error(
+      "Chat load error:",
+      result.error
+    );
+
+    container.innerHTML =
+      '<div class="chat-empty">' +
+      escapeHTML(
+        result.error.message ||
+        "Could not load conversation."
+      ) +
+      '</div>';
+
+    return;
+  }
+
+  const messages =
+    Array.isArray(result.data)
+      ? result.data
+      : [];
+
+  if(messages.length === 0){
+
+    container.innerHTML =
+      '<div class="chat-empty">' +
+      'No messages yet. Start the conversation.' +
+      '</div>';
+
+    return;
+  }
+
+  container.innerHTML =
+    messages
+      .map(function(item){
+
+        const sent =
+          item.sender_id === currentUser.id;
+
+        const time =
+          item.created_at
+            ? new Date(
+                item.created_at
+              ).toLocaleString(
+                "en-NG",
+                {
+                  dateStyle:"short",
+                  timeStyle:"short"
+                }
+              )
+            : "";
+
+        return `
+          <div class="chat-row ${sent ? "sent" : "received"}">
+
+            <div class="chat-bubble">
+
+              ${escapeHTML(
+                item.message || ""
+              )}
+
+              <span class="chat-time">
+                ${escapeHTML(time)}
+              </span>
+
+            </div>
+
+          </div>
+        `;
+
+      })
+      .join("");
+
+  container.scrollTop =
+    container.scrollHeight;
+}
+
+
+async function sendChatMessage(){
+
+  await getCurrentUser();
+
+  if(!currentUser){
+
+    closeModal("chatModal");
+    openAuth();
+
+    return;
+  }
+
+  const receiverId =
+    $("chatOtherUserId").value;
+
+  const gigId =
+    Number($("chatGigId").value);
+
+  const message =
+    $("chatText")
+      .value
+      .trim();
+
+  if(!receiverId || !message){
+
+    showNotice(
+      "chatNotice",
+      "Please enter a message.",
+      "error"
+    );
+
+    return;
+  }
+
+  if(receiverId === currentUser.id){
+
+    showNotice(
+      "chatNotice",
+      "You cannot send a message to yourself.",
+      "error"
+    );
+
+    return;
+  }
+
+  const result =
+    await db
+      .from("messages")
+      .insert({
+        sender_id:currentUser.id,
+        receiver_id:receiverId,
+        gig_id:gigId || null,
+        message:message,
+        created_at:new Date().toISOString()
+      });
+
+  if(result.error){
+
+    console.error(
+      "Send chat error:",
+      result.error
+    );
+
+    showNotice(
+      "chatNotice",
+      result.error.message ||
+      "Could not send message.",
+      "error"
+    );
+
+    return;
+  }
+
+  $("chatText").value = "";
+
+  clearNotice("chatNotice");
+
+  await loadChatMessages();
 
   await loadDashboard();
 }
@@ -3412,15 +3789,56 @@ function renderDashboardData(result,type){
             `;
           }
 
+          /* =================================================
+             UPDATED MESSAGE DISPLAY
+          ================================================= */
+
           if(type === "messages"){
+
+            const otherUserId =
+              item.sender_id === currentUser.id
+                ? item.receiver_id
+                : item.sender_id;
+
+            const gigId =
+              Number(item.gig_id) || 0;
 
             return `
               <div class="dashboard-item">
+
                 💬
                 ${escapeHTML(
                   item.message ||
                   "Message"
                 )}
+
+                <br>
+
+                <span
+                  style="font-size:11px;color:#87948f">
+
+                  ${
+                    item.sender_id === currentUser.id
+                      ? "You sent this"
+                      : "You received this"
+                  }
+
+                </span>
+
+                <br><br>
+
+                ${
+                  otherUserId
+                    ? `
+                      <button
+                        class="small-btn primary"
+                        onclick="openChat('${escapeHTML(otherUserId)}',${gigId})">
+                        💬 Open Chat
+                      </button>
+                    `
+                    : ""
+                }
+
               </div>
             `;
           }
